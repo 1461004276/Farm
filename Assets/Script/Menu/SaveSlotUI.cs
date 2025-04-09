@@ -43,7 +43,7 @@ public class SaveSlotUI : MonoBehaviour
         else
         {
             Debug.Log("新游戏");
-            EventHandler.CallStartNewGameEvent(index);
+            EventSystem.CallStartNewGameEvent(index);
         }
     }
 }

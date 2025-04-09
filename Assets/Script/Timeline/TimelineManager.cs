@@ -26,11 +26,11 @@ public class TimelineManager : Singleton<TimelineManager>
     }
     private void OnEnable()
     {
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
     }
     private void OnDisable()
     {
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
     }
 
     private void OnAfterSceneLoadedEvent()

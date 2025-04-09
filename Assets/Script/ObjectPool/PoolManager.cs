@@ -18,13 +18,13 @@ public class PoolManager : MonoBehaviour
     private void OnEnable()
     {
         //注册播放粒子效果委托事件
-        EventHandler.ParticaleEffectEvent += OnParticaleEffectEvent;
-        EventHandler.InitSoundEffect += InitSoundEffect;
+        EventSystem.ParticaleEffectEvent += OnParticaleEffectEvent;
+        EventSystem.InitSoundEffect += InitSoundEffect;
     }
     private void OnDisable()
     {
-        EventHandler.ParticaleEffectEvent -= OnParticaleEffectEvent;
-        EventHandler.InitSoundEffect -= InitSoundEffect;
+        EventSystem.ParticaleEffectEvent -= OnParticaleEffectEvent;
+        EventSystem.InitSoundEffect -= InitSoundEffect;
     }
     /// <summary>
     /// 创建对象池,为每一个特效预制体创建一个专属的对象池

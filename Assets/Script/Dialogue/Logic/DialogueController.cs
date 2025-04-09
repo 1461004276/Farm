@@ -58,15 +58,15 @@ namespace MFarm.Dialogue
             if(dialogueStack.TryPop(out DialoguePiece result))//Pop:哪一个少一个
             {
                 //传到UI显示对话
-                EventHandler.CallShowDialogueEvent(result);
-                EventHandler.CallUpdateGameStateEvent(GameState.Pause);
+                EventSystem.CallShowDialogueEvent(result);
+                EventSystem.CallUpdateGameStateEvent(GameState.Pause);
                 yield return new WaitUntil(() => result.isDone);//WaitUntil:等待...直到...(直到装对话片段的堆栈中没有了对话片段)
                 isTalking = false;
             }
             else
             {
-                EventHandler.CallUpdateGameStateEvent(GameState.Gameplay);
-                EventHandler.CallShowDialogueEvent(null);
+                EventSystem.CallUpdateGameStateEvent(GameState.Gameplay);
+                EventSystem.CallShowDialogueEvent(null);
                 FillDialogueStack();//对话片段从堆栈中拿空了,现在重新填充
                 isTalking = false;
                 if (OnFinishEvent != null)

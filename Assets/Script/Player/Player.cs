@@ -5,14 +5,14 @@ using MFarm.Save;
 
 public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     public float speed;
     private float InputX;
     private float InputY;
     private Vector2 MovementInput;
     private Animator[] animators;
     private bool isMoving;
-    private bool inputDisable;//玩家此时不能操作
+    private bool inputOff;//禁止玩家输入
     //动画使用工具
     private float mouseX;
     private float mouseY;
@@ -22,9 +22,9 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         animators = GetComponentsInChildren<Animator>();
-        inputDisable= true;
+        inputOff= true;
     }
     private void Start()
     {
@@ -33,39 +33,39 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
     }
     private void OnEnable()
     {
-        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-        EventHandler.MoveToPosition += OnMoveToPosition;
-        EventHandler.MouseClickedEvent += OnMouseClickedEvent;
-        EventHandler.UpdateGameStateEvent += OnUpdateGameStateEvent;
-        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
-        EventHandler.EndGameEvent += OnEndGameEvent;
+        EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.MoveToPosition += OnMoveToPosition;
+        EventSystem.MouseClickedEvent += OnMouseClickedEvent;
+        EventSystem.UpdateGameStateEvent += OnUpdateGameStateEvent;
+        EventSystem.StartNewGameEvent += OnStartNewGameEvent;
+        EventSystem.EndGameEvent += OnEndGameEvent;
     }
     private void OnDisable()
     {
-        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-        EventHandler.MoveToPosition -= OnMoveToPosition;
-        EventHandler.MouseClickedEvent -= OnMouseClickedEvent;
-        EventHandler.UpdateGameStateEvent -= OnUpdateGameStateEvent;
-        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
-        EventHandler.EndGameEvent -= OnEndGameEvent;
+        EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.MoveToPosition -= OnMoveToPosition;
+        EventSystem.MouseClickedEvent -= OnMouseClickedEvent;
+        EventSystem.UpdateGameStateEvent -= OnUpdateGameStateEvent;
+        EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
+        EventSystem.EndGameEvent -= OnEndGameEvent;
     }
 
     private void OnEndGameEvent()
     {
-        inputDisable = true;
+        inputOff = true;
     }
 
     private void OnStartNewGameEvent(int index)
     {
-        inputDisable = false;
+        inputOff = false;
         transform.position = Prams.playerStartPos;
     }
 
     private void Update()
     {
-        if (!inputDisable)
+        if (!inputOff)
         {
             PlayerInput();
         }
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
     }
     private void FixedUpdate()
     {
-        if (!inputDisable)
+        if (!inputOff)
             Movement();
     }
     private void OnUpdateGameStateEvent(GameState gameState)
@@ -86,10 +86,10 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
         switch (gameState)
         {
             case GameState.Pause:
-                inputDisable = true;//玩家不能控制
+                inputOff = true;//玩家不能控制
                 break;
             case GameState.Gameplay:
-                inputDisable = false;//玩家可以控制
+                inputOff = false;//玩家可以控制
                 break;
         }
     }
@@ -115,13 +115,13 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
         }
         else
         {
-            EventHandler.CallExecuteActionAfterAnimation(mouseWorldPos, itemDatils);
+            EventSystem.CallExecuteActionAfterAnimation(mouseWorldPos, itemDatils);
         }
     }
     private IEnumerator UseToolRoutine(Vector3 mouseWorldPos,ItemDetails itemDetails)
     {
         useTool = true;
-        inputDisable = true;
+        inputOff = true;
         yield return null;
         foreach (var anim in animators)
         {
@@ -131,21 +131,21 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
             anim.SetFloat("InputY", mouseY);
         }
         yield return new WaitForSeconds(0.45f);
-        EventHandler.CallExecuteActionAfterAnimation(mouseWorldPos, itemDetails);
+        EventSystem.CallExecuteActionAfterAnimation(mouseWorldPos, itemDetails);
         yield return new WaitForSeconds(0.25f);
         //等待动画结束
         useTool = false;
-        inputDisable = false;
+        inputOff = false;
     }
 
     private void OnBeforeSceneUnloadEvent()
     {
-        inputDisable = true;
+        inputOff = true;
     }
 
     private void OnAfterSceneLoadedEvent()
     {
-        inputDisable = false;//加载完场景之后玩家才能操控
+        inputOff = false;
     }
 
     private void OnMoveToPosition(Vector3 targetPosition)
@@ -172,7 +172,7 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
     }
     private void Movement()
     {
-        rb.MovePosition(rb.position + MovementInput * speed * Time.deltaTime);
+        _rb.MovePosition(_rb.position + MovementInput * speed * Time.deltaTime);
     }
     private void SwitchAnimator()
     {

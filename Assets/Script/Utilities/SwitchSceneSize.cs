@@ -1,15 +1,15 @@
 using Cinemachine;
 using UnityEngine;
 
-public class SwitchBounds : MonoBehaviour //控制切换边界时的类，每张地图边界不同，每次切换地图时调用此类，更新一下边界让Cinamachine知道
+public class SwitchSceneSize : MonoBehaviour //控制切换边界时的类，每张地图边界不同，每次切换地图时调用此类，更新一下边界让Cinamachine知道
 {
     private void OnEnable()
     {
-        EventHandler.AfterSceneLoadedEvent += SwitchConfinerShape;//加载注册事件
+        EventSystem.AfterSceneLoadedEvent += SwitchConfinerShape;//加载注册事件
     }
     private void OnDisable()
     {
-        EventHandler.AfterSceneLoadedEvent -= SwitchConfinerShape;
+        EventSystem.AfterSceneLoadedEvent -= SwitchConfinerShape;
     }
     private void SwitchConfinerShape()
     {

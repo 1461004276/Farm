@@ -36,7 +36,7 @@ namespace MFarm.CropPlant
                     {
                         if (cropDetails.generateAtPlayerPostion)
                         {
-                            EventHandler.CallHarvestAtPlayerPostion(cropDetails.producedItemID[i]);
+                            EventSystem.CallHarvestAtPlayerPostion(cropDetails.producedItemID[i]);
                         }
                         else//在世界地图上生成物品
                         {
@@ -45,7 +45,7 @@ namespace MFarm.CropPlant
                             //一定范围内随机
                             var spawnPos = new Vector3(transform.position.x + Random.Range(dirX, cropDetails.spawnRadius.x * dirX), transform.position.y + Random.Range(-cropDetails.spawnRadius.y, cropDetails.spawnRadius.y), 0);
                             //在世界场景中生成物品
-                            EventHandler.CallInstantiateItemInScene(cropDetails.producedItemID[i], spawnPos);
+                            EventSystem.CallInstantiateItemInScene(cropDetails.producedItemID[i], spawnPos);
                         }
                     }
                 }

@@ -17,11 +17,11 @@ public class UIManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
     }
     private void OnDisable()
     {
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
     }
 
     private void OnAfterSceneLoadedEvent()
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator BackToMenu()
     {
         pausePanel.SetActive(false);
-        EventHandler.CallEndGameEvent();
+        EventSystem.CallEndGameEvent();
         yield return new WaitForSeconds(1.0f);
         Instantiate(menuPrefab, menuCanvas.transform);
     }

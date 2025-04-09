@@ -18,11 +18,11 @@ public class DialogueUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventHandler.ShowDialogueEvent += OnShowDialogueEvent;
+        EventSystem.ShowDialogueEvent += OnShowDialogueEvent;
     }
     private void OnDisable()
     {
-        EventHandler.ShowDialogueEvent -= OnShowDialogueEvent;
+        EventSystem.ShowDialogueEvent -= OnShowDialogueEvent;
     }
 
     private void OnShowDialogueEvent(DialoguePiece piece)

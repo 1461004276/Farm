@@ -16,19 +16,19 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
     public string GUID => GetComponent<DataGUID>().guid;
     private void OnEnable()
     {
-        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-        EventHandler.UpdateGameStateEvent += OnUpdateGameStateEvent;
-        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
-        EventHandler.EndGameEvent += OnEndGameEvent;
+        EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.UpdateGameStateEvent += OnUpdateGameStateEvent;
+        EventSystem.StartNewGameEvent += OnStartNewGameEvent;
+        EventSystem.EndGameEvent += OnEndGameEvent;
     }
     private void OnDisable()
     {
-        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-        EventHandler.UpdateGameStateEvent -= OnUpdateGameStateEvent;
-        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
-        EventHandler.EndGameEvent -= OnEndGameEvent;
+        EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.UpdateGameStateEvent -= OnUpdateGameStateEvent;
+        EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
+        EventSystem.EndGameEvent -= OnEndGameEvent;
     }
 
     private void OnEndGameEvent()
@@ -59,10 +59,10 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
 
     private void Start()
     {
-/*        EventHandler.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason);
-        EventHandler.CallGameMinuteEvent(gameMinute, gameHour,gameSeason,gameDay);
+/*        EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+        EventSystem.CallGameMinuteEvent(gameMinute, gameHour,gameSeason,gameDay);
         //切换灯光
-        EventHandler.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);*/
+        EventSystem.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);*/
         ISaveable saveable = this;
         saveable.RegisterSaveable();
         gameClockPause= true;
@@ -89,8 +89,8 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         if (Input.GetKeyDown(KeyCode.G))//作弊按钮(天数增加)
         {
             gameDay++;
-            EventHandler.CallGameDayEvent(gameDay, gameSeason);
-            EventHandler.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+            EventSystem.CallGameDayEvent(gameDay, gameSeason);
+            EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason);
         }
     }
     private void NewGameTime()//新开一局游戏时给游戏初始化赋值
@@ -151,15 +151,15 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
                             }
                         }
                         //用来刷新地图和农作物生长
-                        EventHandler.CallGameDayEvent(gameDay, gameSeason);
+                        EventSystem.CallGameDayEvent(gameDay, gameSeason);
                     }
                 }
                 //每时间执行到此位置，调用一下委托时间
-                EventHandler.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason); //这里需要调用一下委托事件
+                EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason); //这里需要调用一下委托事件
             }
-            EventHandler.CallGameMinuteEvent(gameMinute, gameHour,gameSeason,gameDay);//这里需要调用一下委托事件
+            EventSystem.CallGameMinuteEvent(gameMinute, gameHour,gameSeason,gameDay);//这里需要调用一下委托事件
             //切换灯光
-            EventHandler.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);
+            EventSystem.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);
         }
     }
     /// <summary>

@@ -1,30 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-//单例模式,管理类都要添加单例模式确保整个程序只能new一个来保证程序性能
+
+//单例模式基类
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
-    private static T instance;
+    private static T _instance;
     public static T Instance
     {
-        get => instance;
+        get => _instance;
     }
     protected virtual void Awake()
     {
-        if(instance != null)
+        if(_instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = (T)this;
+            _instance = (T)this;
         }
     }
     protected virtual void OnDestroy()
     {
-        if(instance == this)
+        if(_instance == this)
         {
-            instance = null;
+            _instance = null;
         }
     }
 }

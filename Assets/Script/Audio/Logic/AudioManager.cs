@@ -23,15 +23,15 @@ public class AudioManager : Singleton<AudioManager>
     private float musicTransitionSecond = 8f;
     private void OnEnable()
     {
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-        EventHandler.PlaySoundEvent += OnPlaySoundEvent;
-        EventHandler.EndGameEvent += OnEndGameEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.PlaySoundEvent += OnPlaySoundEvent;
+        EventSystem.EndGameEvent += OnEndGameEvent;
     }
     private void OnDisable()
     {
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-        EventHandler.PlaySoundEvent -= OnPlaySoundEvent;
-        EventHandler.EndGameEvent -= OnEndGameEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.PlaySoundEvent -= OnPlaySoundEvent;
+        EventSystem.EndGameEvent -= OnEndGameEvent;
     }
 
     private void OnEndGameEvent()
@@ -47,7 +47,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         var soundDetails = soundDetailsData.GetSoundDetails(soundName);
         if (soundDetails != null)
-            EventHandler.CallInitSoundEffect(soundDetails);
+            EventSystem.CallInitSoundEffect(soundDetails);
     }
 
     private void OnAfterSceneLoadedEvent()

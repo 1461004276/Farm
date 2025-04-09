@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace MFarm.Transition
 {
     public class Teleport : MonoBehaviour
@@ -12,7 +11,7 @@ namespace MFarm.Transition
         {
             if (other.CompareTag("Player"))
             {
-                EventHandler.CallTransitionEvent(sceneToGo, positionToGo);
+                EventSystem.CallTransitionEvent(sceneToGo, positionToGo);
             }
         }
     }

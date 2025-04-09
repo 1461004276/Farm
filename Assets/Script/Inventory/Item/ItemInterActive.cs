@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //物品摇晃效果脚本
 public class ItemInterActive : MonoBehaviour
@@ -20,7 +19,7 @@ public class ItemInterActive : MonoBehaviour
                 //对方在右侧 向左摇晃
                 StartCoroutine(RotateLeft());
             }
-            EventHandler.CallPlaySoundEvent(SoundName.Rustle);
+            EventSystem.CallPlaySoundEvent(SoundName.Rustle);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -37,7 +36,7 @@ public class ItemInterActive : MonoBehaviour
                 //对方在右侧 向左摇晃
                 StartCoroutine(RotateLeft());
             }
-            EventHandler.CallPlaySoundEvent(SoundName.Rustle);
+            EventSystem.CallPlaySoundEvent(SoundName.Rustle);
         }
     }
     private IEnumerator RotateLeft()//使用携程来完成动画效果,避免主程冲突

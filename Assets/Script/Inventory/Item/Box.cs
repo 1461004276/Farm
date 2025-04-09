@@ -38,19 +38,19 @@ namespace MFarm.Inventory
             if (!isOpen && canOpen && Input.GetMouseButtonDown(1))
             {
                 //打开箱子
-                EventHandler.CallBaseBagOpenEvent(SlotType.Box, boxBagData);
+                EventSystem.CallBaseBagOpenEvent(SlotType.Box, boxBagData);
                 isOpen = true;
             }
             if (!canOpen && isOpen)
             {
                 //关闭箱子
-                EventHandler.CallBaseBagCloseEvent(SlotType.Box, boxBagData);
+                EventSystem.CallBaseBagCloseEvent(SlotType.Box, boxBagData);
                 isOpen = false;
             }
             if (isOpen && Input.GetKeyDown(KeyCode.Escape))
             {
                 //关闭箱子
-                EventHandler.CallBaseBagCloseEvent(SlotType.Box, boxBagData);
+                EventSystem.CallBaseBagCloseEvent(SlotType.Box, boxBagData);
                 isOpen = false;
             }
         }

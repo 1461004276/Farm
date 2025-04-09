@@ -25,19 +25,19 @@ namespace MFarm.Inventory
         [SerializeField] private List<SlotUI> baseBagSlots;
         private void OnEnable()//当脚本执行时为委托事件添加方法(注册方法)
         {
-            EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
-            EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-            EventHandler.BaseBagOpenEvent += OnBaseBagOpenEvent;
-            EventHandler.BaseBagCloseEvent += OnBaseBagCloseEvent;
-            EventHandler.ShowTradeUI += OnShowTradeUI;
+            EventSystem.UpdateInventoryUI += OnUpdateInventoryUI;
+            EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+            EventSystem.BaseBagOpenEvent += OnBaseBagOpenEvent;
+            EventSystem.BaseBagCloseEvent += OnBaseBagCloseEvent;
+            EventSystem.ShowTradeUI += OnShowTradeUI;
         }
         private void OnDisable()//当脚本关闭时去除委托中的函数方法
         {
-            EventHandler.UpdateInventoryUI -= OnUpdateInventoryUI;
-            EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-            EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
-            EventHandler.BaseBagCloseEvent -= OnBaseBagCloseEvent;
-            EventHandler.ShowTradeUI -= OnShowTradeUI;
+            EventSystem.UpdateInventoryUI -= OnUpdateInventoryUI;
+            EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+            EventSystem.BaseBagOpenEvent -= OnBaseBagOpenEvent;
+            EventSystem.BaseBagCloseEvent -= OnBaseBagCloseEvent;
+            EventSystem.ShowTradeUI -= OnShowTradeUI;
         }
 
         private void OnShowTradeUI(ItemDetails item, bool isSell)

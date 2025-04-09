@@ -75,19 +75,19 @@ public class NPCMovement : MonoBehaviour,ISaveable
     }
     private void OnEnable()
     {
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.GameMinuteEvent += OnGameMinuteEvent;
-        EventHandler.EndGameEvent += OnEndGameEvent;
-        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventSystem.GameMinuteEvent += OnGameMinuteEvent;
+        EventSystem.EndGameEvent += OnEndGameEvent;
+        EventSystem.StartNewGameEvent += OnStartNewGameEvent;
     }
     private void OnDisable()
     {
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.GameMinuteEvent -= OnGameMinuteEvent;
-        EventHandler.EndGameEvent -= OnEndGameEvent;
-        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventSystem.GameMinuteEvent -= OnGameMinuteEvent;
+        EventSystem.EndGameEvent -= OnEndGameEvent;
+        EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
     private void OnStartNewGameEvent(int obj)

@@ -29,17 +29,17 @@ namespace MFarm.Map
 
         private void OnEnable()
         {
-            EventHandler.ExecuteActionAfterAnimation += OnExecuteActionAfterAnimation;
-            EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-            EventHandler.GameDayEvent += OnGameDayEvent;
-            EventHandler.RefreshCurrentMap += RefreshMap;
+            EventSystem.ExecuteActionAfterAnimation += OnExecuteActionAfterAnimation;
+            EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+            EventSystem.GameDayEvent += OnGameDayEvent;
+            EventSystem.RefreshCurrentMap += RefreshMap;
         }
         private void OnDisable()
         {
-            EventHandler.ExecuteActionAfterAnimation -= OnExecuteActionAfterAnimation;
-            EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-            EventHandler.GameDayEvent -= OnGameDayEvent;
-            EventHandler.RefreshCurrentMap -= RefreshMap;
+            EventSystem.ExecuteActionAfterAnimation -= OnExecuteActionAfterAnimation;
+            EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+            EventSystem.GameDayEvent -= OnGameDayEvent;
+            EventSystem.RefreshCurrentMap -= RefreshMap;
         }
         /// <summary>
         /// 每天执行一次
@@ -82,7 +82,7 @@ namespace MFarm.Map
             if (firstLoadDic[SceneManager.GetActiveScene().name])
             {
                 //预先生成农作物
-                EventHandler.CallGenerateCropEvent();
+                EventSystem.CallGenerateCropEvent();
                 firstLoadDic[SceneManager.GetActiveScene().name] = false;//将当前场景的是否是第一次激活状态改为false
             }
 
@@ -181,12 +181,12 @@ namespace MFarm.Map
                 switch (itemDetails.itemType)
                 {
                     case ItemType.Seed:
-                        EventHandler.CallPlantSeedEvent(itemDetails.itemID, currentTile);
-                        EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos,itemDetails.itemType);
-                        EventHandler.CallPlaySoundEvent(SoundName.Plant);
+                        EventSystem.CallPlantSeedEvent(itemDetails.itemID, currentTile);
+                        EventSystem.CallDropItemEvent(itemDetails.itemID, mouseWorldPos,itemDetails.itemType);
+                        EventSystem.CallPlaySoundEvent(SoundName.Plant);
                         break;
                     case ItemType.Commodity:
-                        EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos, itemDetails.itemType);//复制一个商品到鼠标位置
+                        EventSystem.CallDropItemEvent(itemDetails.itemID, mouseWorldPos, itemDetails.itemType);//复制一个商品到鼠标位置
                         break;
                     case ItemType.HolTool:
                         SetDigGround(currentTile);
@@ -194,13 +194,13 @@ namespace MFarm.Map
                         currentTile.canDig = false;
                         currentTile.canDropItm = false;
                         //音效
-                        EventHandler.CallPlaySoundEvent(SoundName.Hoe);
+                        EventSystem.CallPlaySoundEvent(SoundName.Hoe);
                         break;
                     case ItemType.WaterTool:
                         SetWaterGround(currentTile);
                         currentTile.daysSinceWatered = 0;
                         //音效
-                        EventHandler.CallPlaySoundEvent(SoundName.Water);
+                        EventSystem.CallPlaySoundEvent(SoundName.Water);
                         break;
                     case ItemType.BreakTool:
                     case ItemType.ChopTool:
@@ -215,7 +215,7 @@ namespace MFarm.Map
                         var reapCount = 0;
                         for (int i = 0; i < itemsInRadius.Count; i++)
                         {
-                            EventHandler.CallParticaleEffectEvent(ParticaleEffectType.ReapableScenery, itemsInRadius[i].transform.position + Vector3.up);
+                            EventSystem.CallParticaleEffectEvent(ParticaleEffectType.ReapableScenery, itemsInRadius[i].transform.position + Vector3.up);
                             itemsInRadius[i].SpawnHarvestItems();
                             Destroy(itemsInRadius[i].gameObject);
                             reapCount++;
@@ -224,14 +224,14 @@ namespace MFarm.Map
                                 break;//限制一下一次性能收割的草数量避免直接收割一大片
                             }
                         }
-                        EventHandler.CallPlaySoundEvent(SoundName.Reap);
+                        EventSystem.CallPlaySoundEvent(SoundName.Reap);
                         break;
                     case ItemType.Furniture:
                         //在地图上生成物品 ItemManager
                         //移除当前物品(图纸) InventoryManager
                         //移除资源物品 InventoryManager
                         //这里只需要触发一个事件即可,然后激活事件之后,对应的脚本去干它们自己该干的活儿
-                        EventHandler.CallBuildFurnitureEvent(itemDetails.itemID,mouseWorldPos);
+                        EventSystem.CallBuildFurnitureEvent(itemDetails.itemID,mouseWorldPos);
                         break;
                 }
                 UpdateTileDetails(currentTile);
@@ -365,7 +365,7 @@ namespace MFarm.Map
                     }
                     //TODO:种子
                     if (tileDetails.seedItemID > -1)//当前格子中有种子信息
-                        EventHandler.CallPlantSeedEvent(tileDetails.seedItemID, tileDetails);
+                        EventSystem.CallPlantSeedEvent(tileDetails.seedItemID, tileDetails);
                 }
             }
         }

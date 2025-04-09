@@ -26,21 +26,21 @@ namespace MFarm.Inventory
         }
         private void OnEnable()
         {
-            EventHandler.InstantiateItemInScene += OnInstantiateItemInScene;//为委托事件添加函数方法
-            EventHandler.DropItemEvent += OnDropItemEvent;//扔东西委托事件
-            EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-            EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-            EventHandler.BuildFurnitureEvent += OnBuildFurnitureEvent;
-            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+            EventSystem.InstantiateItemInScene += OnInstantiateItemInScene;//为委托事件添加函数方法
+            EventSystem.DropItemEvent += OnDropItemEvent;//扔东西委托事件
+            EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+            EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+            EventSystem.BuildFurnitureEvent += OnBuildFurnitureEvent;
+            EventSystem.StartNewGameEvent += OnStartNewGameEvent;
         }
         private void OnDisable()
         {
-            EventHandler.InstantiateItemInScene -= OnInstantiateItemInScene;
-            EventHandler.DropItemEvent -= OnDropItemEvent;
-            EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-            EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-            EventHandler.BuildFurnitureEvent -= OnBuildFurnitureEvent;
-            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+            EventSystem.InstantiateItemInScene -= OnInstantiateItemInScene;
+            EventSystem.DropItemEvent -= OnDropItemEvent;
+            EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+            EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+            EventSystem.BuildFurnitureEvent -= OnBuildFurnitureEvent;
+            EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
         }
 
         private void OnStartNewGameEvent(int index)

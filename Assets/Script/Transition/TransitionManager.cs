@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using MFarm.Save;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using MFarm.Save;
+
 namespace MFarm.Transition
 {
     public class TransitionManager : Singleton<TransitionManager>,ISaveable
@@ -26,15 +26,15 @@ namespace MFarm.Transition
         }
         private void OnEnable()
         {
-            EventHandler.TransitionEvent += OnTransitionEvent;
-            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
-            EventHandler.EndGameEvent += OnEndGameEvent;
+            EventSystem.TransitionEvent += OnTransitionEvent;
+            EventSystem.StartNewGameEvent += OnStartNewGameEvent;
+            EventSystem.EndGameEvent += OnEndGameEvent;
         }
         private void OnDisable()
         {
-            EventHandler.TransitionEvent -= OnTransitionEvent;
-            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
-            EventHandler.EndGameEvent -= OnEndGameEvent;
+            EventSystem.TransitionEvent -= OnTransitionEvent;
+            EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
+            EventSystem.EndGameEvent -= OnEndGameEvent;
         }
 
         private void OnEndGameEvent()
@@ -61,13 +61,13 @@ namespace MFarm.Transition
         /// <returns></returns>
         private IEnumerator Transition(string sceneName,Vector3 targetPosition)
         {
-            EventHandler.CallBeforeSceneUnloadEvent();//先执行一下卸载场景之前要做的事儿
+            EventSystem.CallBeforeSceneUnloadEvent();//先执行一下卸载场景之前要做的事儿
             yield return Fade(1);
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());//卸载掉当前场景
             yield return LoadSceneSetActive(sceneName);//加载新的场景
             //移动人物坐标
-            EventHandler.CallMoveToPosition(targetPosition);//场景加载好了就把人物挪过去
-            EventHandler.CallAfterSceneLoadedEvent();//加载场景之后又需要做一些事件
+            EventSystem.CallMoveToPosition(targetPosition);//场景加载好了就把人物挪过去
+            EventSystem.CallAfterSceneLoadedEvent();//加载场景之后又需要做一些事件
             yield return Fade(0);
         }
         /// <summary>
@@ -106,16 +106,16 @@ namespace MFarm.Transition
             yield return Fade(1f);
             if (SceneManager.GetActiveScene().name != "PersistentScene")//在游戏过程中加载另外的游戏进度
             {
-                EventHandler.CallBeforeSceneUnloadEvent();
+                EventSystem.CallBeforeSceneUnloadEvent();
                 yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
             }
             yield return LoadSceneSetActive(sceneName);
-            EventHandler.CallAfterSceneLoadedEvent();
+            EventSystem.CallAfterSceneLoadedEvent();
             yield return Fade(0);
         }
         private IEnumerator UnloadScene()
         {
-            EventHandler.CallBeforeSceneUnloadEvent();
+            EventSystem.CallBeforeSceneUnloadEvent();
             yield return Fade(1f);
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
             yield return Fade(0);

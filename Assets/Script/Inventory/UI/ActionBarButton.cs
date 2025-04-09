@@ -16,11 +16,11 @@ namespace MFarm.Inventory
         }
         private void OnEnable()
         {
-            EventHandler.UpdateGameStateEvent += OnUpdateGameStateEvent;
+            EventSystem.UpdateGameStateEvent += OnUpdateGameStateEvent;
         }
         private void OnDisable()
         {
-            EventHandler.UpdateGameStateEvent -= OnUpdateGameStateEvent;
+            EventSystem.UpdateGameStateEvent -= OnUpdateGameStateEvent;
         }
 
         private void OnUpdateGameStateEvent(GameState gameState)
@@ -45,7 +45,7 @@ namespace MFarm.Inventory
                     }
                     //程序执行到这里,代表这里发生了点击,因为我们在委托事件句柄中编写了背包格子点击委托事件
                     //所以无论如何这里发生了点击都应该执行点击委托事件,使程序连贯合理
-                    EventHandler.CallItemSelectedEvent(slotUI.itemDetails, slotUI.isSelected);
+                    EventSystem.CallItemSelectedEvent(slotUI.itemDetails, slotUI.isSelected);
                 }
             }
         }

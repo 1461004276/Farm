@@ -16,11 +16,11 @@ namespace MFarm.CropPlant
         }
         private void OnEnable()
         {
-            EventHandler.GenerateCropEvent += GenerateCrop;
+            EventSystem.GenerateCropEvent += GenerateCrop;
         }
         private void OnDisable()
         {
-            EventHandler.GenerateCropEvent -= GenerateCrop;
+            EventSystem.GenerateCropEvent -= GenerateCrop;
         }
         private void GenerateCrop()
         {

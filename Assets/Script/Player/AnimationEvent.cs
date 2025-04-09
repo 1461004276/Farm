@@ -6,6 +6,6 @@ public class AnimationEvent : MonoBehaviour
 {
     public void FootstepSound()
     {
-        EventHandler.CallPlaySoundEvent(SoundName.FootStepSoft);
+        EventSystem.CallPlaySoundEvent(SoundName.FootStepSoft);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using MFarm.Dialogue;
 
-public static class EventHandler //创建一个脚本来控制游戏中所有的事件，静态的，全局的
+public static class EventSystem //创建一个脚本来控制游戏中所有的事件，静态的，全局的
 {
 
     public static event Action<InventoryLocation, List<InventoryItem>> UpdateInventoryUI; //定义一个委托事件，需要知道更新格子的位置和更新的道具数据

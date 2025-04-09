@@ -22,19 +22,19 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
         public string GUID => GetComponent<DataGUID>().guid;
         private void OnEnable()
         {
-            EventHandler.DropItemEvent += OnDropItemEvent;
-            EventHandler.HarvestAtPlayerPostion += OnHarvestAtPlayerPostion;
-            EventHandler.BuildFurnitureEvent += OnBuildFurnitureEvent;
-            EventHandler.BaseBagOpenEvent += OnBaseBagOpenEvent;
-            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+            EventSystem.DropItemEvent += OnDropItemEvent;
+            EventSystem.HarvestAtPlayerPostion += OnHarvestAtPlayerPostion;
+            EventSystem.BuildFurnitureEvent += OnBuildFurnitureEvent;
+            EventSystem.BaseBagOpenEvent += OnBaseBagOpenEvent;
+            EventSystem.StartNewGameEvent += OnStartNewGameEvent;
         }
         private void OnDisable()
         {
-            EventHandler.DropItemEvent -= OnDropItemEvent;
-            EventHandler.HarvestAtPlayerPostion -= OnHarvestAtPlayerPostion;
-            EventHandler.BuildFurnitureEvent -= OnBuildFurnitureEvent;
-            EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
-            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+            EventSystem.DropItemEvent -= OnDropItemEvent;
+            EventSystem.HarvestAtPlayerPostion -= OnHarvestAtPlayerPostion;
+            EventSystem.BuildFurnitureEvent -= OnBuildFurnitureEvent;
+            EventSystem.BaseBagOpenEvent -= OnBaseBagOpenEvent;
+            EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
         }
 
         private void OnStartNewGameEvent(int index)
@@ -42,7 +42,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
             PlayerBag = Instantiate(playerBagTemp);
             playerMoney = Prams.playerStartMoney;
             boxDataDict.Clear();
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
 
         private void OnBaseBagOpenEvent(SlotType slotType, InventoryBag_SO bag_SO)
@@ -65,7 +65,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
             var index = GetItemIndexInBag(ID);
             AddItemAtIndex(ID, index, 1);
             //更新UI
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
 
         private void OnDropItemEvent(int ID, Vector3 pos,ItemType itemType)
@@ -75,7 +75,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
 
         private void Start()
         {
-/*            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//游戏一开始就调用一下更新UI的委托事件*/
+/*            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//游戏一开始就调用一下更新UI的委托事件*/
             ISaveable saveable = this;
             saveable.RegisterSaveable();
         }
@@ -103,7 +103,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                 Destroy(item.gameObject);
             }
             //添加物品数据之后需要更新一下UI
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//直接调用其他脚本注册好的委托事件
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//直接调用其他脚本注册好的委托事件
         }
         /// <summary>
         /// 检查背包是否有空位
@@ -176,7 +176,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                 PlayerBag.itemList[targetIndex] = currentItem;
                 PlayerBag.itemList[fromIndex] = new InventoryItem();//new 一个空的InventoryItem
             }
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//刷新一下背包UI
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//刷新一下背包UI
         }
         /// <summary>
         /// 跨背包交换数据
@@ -209,8 +209,8 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                     targetList[targetIndex] = currentItem;
                     currentList[fromIndex] = new InventoryItem();
                 }
-                EventHandler.CallUpdateInventoryUI(locationFrom, currentList);
-                EventHandler.CallUpdateInventoryUI(locationTarget, targetList);
+                EventSystem.CallUpdateInventoryUI(locationFrom, currentList);
+                EventSystem.CallUpdateInventoryUI(locationTarget, targetList);
             }
         }
         /// <summary>
@@ -246,7 +246,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                 var item = new InventoryItem();
                 PlayerBag.itemList[index] = item;
             }
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//更新一下UI
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//更新一下UI
         }
         /// <summary>
         /// 检查建造资源物品库存
@@ -300,7 +300,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                 playerMoney -= cost;
             }
             //刷新UI
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
         /// <summary>
         /// 查找箱子数据
@@ -353,7 +353,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
                     boxDataDict[item.Key] = item.Value;
                 }
             }
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//刷新一下UI
+            EventSystem.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);//刷新一下UI
         }
     }
 }

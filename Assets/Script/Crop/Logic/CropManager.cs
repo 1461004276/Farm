@@ -11,15 +11,15 @@ namespace MFarm.CropPlant
         private Season currentSeason;
         private void OnEnable()
         {
-            EventHandler.PlantSeedEvent += OnPlantSeedEvent;//在种子播种时执行一次此委托事件
-            EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;//在场景切换时执行一次此委托事件
-            EventHandler.GameDayEvent += OnGameDayEvent;
+            EventSystem.PlantSeedEvent += OnPlantSeedEvent;//在种子播种时执行一次此委托事件
+            EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;//在场景切换时执行一次此委托事件
+            EventSystem.GameDayEvent += OnGameDayEvent;
         }
         private void OnDisable()
         {
-            EventHandler.PlantSeedEvent -= OnPlantSeedEvent;
-            EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-            EventHandler.GameDayEvent -= OnGameDayEvent;
+            EventSystem.PlantSeedEvent -= OnPlantSeedEvent;
+            EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+            EventSystem.GameDayEvent -= OnGameDayEvent;
         }
 
         private void OnGameDayEvent(int day, Season season)

@@ -65,7 +65,7 @@ namespace MFarm.Inventory
             {
                 isSelected = false;
                 inventoryUI.UpdateSlotHighlight(-1);
-                EventHandler.CallItemSelectedEvent(itemDetails, isSelected);
+                EventSystem.CallItemSelectedEvent(itemDetails, isSelected);
             }
             itemDetails = null;
             slotImage.enabled = false;
@@ -81,7 +81,7 @@ namespace MFarm.Inventory
             inventoryUI.UpdateSlotHighlight(slotIndex);
             if (slotType == SlotType.Bag)//如果格子类型是背包格子，才能触发切换动画效果
             {
-                EventHandler.CallItemSelectedEvent(itemDetails, isSelected);//触发点击委托事件
+                EventSystem.CallItemSelectedEvent(itemDetails, isSelected);//触发点击委托事件
             }
         }
 
@@ -120,11 +120,11 @@ namespace MFarm.Inventory
                 }
                 else if (slotType == SlotType.Shop && targatSlot.slotType == SlotType.Bag)//买
                 {
-                    EventHandler.CallShowTradeUI(itemDetails, false);
+                    EventSystem.CallShowTradeUI(itemDetails, false);
                 }
                 else if (slotType == SlotType.Bag && targatSlot.slotType == SlotType.Shop)//卖
                 {
-                    EventHandler.CallShowTradeUI(itemDetails, true);
+                    EventSystem.CallShowTradeUI(itemDetails, true);
                 }
                 else if(slotType != SlotType.Shop && targatSlot.slotType != SlotType.Shop&&slotType != targatSlot.slotType)
                 {
@@ -140,7 +140,7 @@ namespace MFarm.Inventory
                 {
                     //鼠标对应的世界地图上的坐标
                     var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));//将鼠标的屏幕坐标转化为世界坐标
-                    EventHandler.CallInstantiateItemInScene(itemDetails.itemID, pos);
+                    EventSystem.CallInstantiateItemInScene(itemDetails.itemID, pos);
                 }
 
             }*/

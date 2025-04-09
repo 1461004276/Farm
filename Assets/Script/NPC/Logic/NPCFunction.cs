@@ -17,13 +17,13 @@ public class NPCFunction : MonoBehaviour
     public void OpenShop()
     {
         isOpen = true;
-        EventHandler.CallBaseBagOpenEvent(SlotType.Shop, shopData);//触发打开背包委托事件
-        EventHandler.CallUpdateGameStateEvent(GameState.Pause);//触发游戏暂停事件
+        EventSystem.CallBaseBagOpenEvent(SlotType.Shop, shopData);//触发打开背包委托事件
+        EventSystem.CallUpdateGameStateEvent(GameState.Pause);//触发游戏暂停事件
     }
     public void CloseShop()
     {
         isOpen = false;
-        EventHandler.CallBaseBagCloseEvent(SlotType.Shop, shopData);//触发关闭背包委托事件
-        EventHandler.CallUpdateGameStateEvent(GameState.Gameplay);//触发游戏继续事件
+        EventSystem.CallBaseBagCloseEvent(SlotType.Shop, shopData);//触发关闭背包委托事件
+        EventSystem.CallUpdateGameStateEvent(GameState.Gameplay);//触发游戏继续事件
     }
 }

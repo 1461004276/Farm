@@ -15,7 +15,7 @@ public class DialogueBehaviour : PlayableBehaviour//一个基类接口,可以让
     public override void OnBehaviourPlay(Playable playable, FrameData info)//当播放当前片段时
     {
         //呼叫启动UI
-        EventHandler.CallShowDialogueEvent(dialoguePiece);
+        EventSystem.CallShowDialogueEvent(dialoguePiece);
         if (Application.isPlaying)
         {
             if (dialoguePiece.hasToPause)
@@ -25,7 +25,7 @@ public class DialogueBehaviour : PlayableBehaviour//一个基类接口,可以让
             }
             else
             {
-                EventHandler.CallShowDialogueEvent(null);//关闭对话框
+                EventSystem.CallShowDialogueEvent(null);//关闭对话框
             }
         }
     }
@@ -38,14 +38,14 @@ public class DialogueBehaviour : PlayableBehaviour//一个基类接口,可以让
     //Timeline父类自带函数,在Timeline播放完毕之后执行一次
     public override void OnBehaviourPause(Playable playable,FrameData info)
     {
-        EventHandler.CallShowDialogueEvent(null);//关闭对话框
+        EventSystem.CallShowDialogueEvent(null);//关闭对话框
     }
     public override void OnGraphStart(Playable playable)
     {
-        EventHandler.CallUpdateGameStateEvent(GameState.Pause);
+        EventSystem.CallUpdateGameStateEvent(GameState.Pause);
     }
     public override void OnGraphStop(Playable playable)
     {
-        EventHandler.CallUpdateGameStateEvent(GameState.Gameplay);//激活委托里面存放的事件
+        EventSystem.CallUpdateGameStateEvent(GameState.Gameplay);//激活委托里面存放的事件
     }
 }

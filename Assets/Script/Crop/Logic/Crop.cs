@@ -36,13 +36,13 @@ public class Crop : MonoBehaviour
             //播放粒子
             if (cropDetails.hasParticalEffect)
             {
-                EventHandler.CallParticaleEffectEvent(cropDetails.effectType, transform.position + cropDetails.effectPos);
+                EventSystem.CallParticaleEffectEvent(cropDetails.effectType, transform.position + cropDetails.effectPos);
             }
 
             //播放声音
             if (cropDetails.soundEffect != SoundName.none)
             {
-                EventHandler.CallPlaySoundEvent(cropDetails.soundEffect);
+                EventSystem.CallPlaySoundEvent(cropDetails.soundEffect);
             }
         }
         if (harvestActionCount >= requireActionCount)
@@ -62,7 +62,7 @@ public class Crop : MonoBehaviour
                 {
                     anim.SetTrigger("FallingLeft");
                 }
-                EventHandler.CallPlaySoundEvent(SoundName.TreeFalling);
+                EventSystem.CallPlaySoundEvent(SoundName.TreeFalling);
                 StartCoroutine(HarvestAfterAnimator());
             }
         }
@@ -93,7 +93,7 @@ public class Crop : MonoBehaviour
         tileDetails.seedItemID = cropDetails.transferItemID;//转化物品
         tileDetails.daysSinceLastHarvest = -1;//现在不能再收割了
         tileDetails.growthDays = 0;
-        EventHandler.CallRefreshCurrentMap();//刷新一下当前物品的信息
+        EventSystem.CallRefreshCurrentMap();//刷新一下当前物品的信息
     }
     /// <summary>
     /// 生成农作物函数
@@ -118,7 +118,7 @@ public class Crop : MonoBehaviour
             {
                 if (cropDetails.generateAtPlayerPostion)
                 {
-                    EventHandler.CallHarvestAtPlayerPostion(cropDetails.producedItemID[i]);
+                    EventSystem.CallHarvestAtPlayerPostion(cropDetails.producedItemID[i]);
                 }
                 else//在世界地图上生成物品
                 {
@@ -127,7 +127,7 @@ public class Crop : MonoBehaviour
                     //一定范围内随机
                     var spawnPos = new Vector3(transform.position.x + Random.Range(dirX, cropDetails.spawnRadius.x * dirX), transform.position.y + Random.Range(-cropDetails.spawnRadius.y, cropDetails.spawnRadius.y), 0);
                     //在世界场景中生成物品
-                    EventHandler.CallInstantiateItemInScene(cropDetails.producedItemID[i], spawnPos);
+                    EventSystem.CallInstantiateItemInScene(cropDetails.producedItemID[i], spawnPos);
                 }
             }
         }
@@ -139,7 +139,7 @@ public class Crop : MonoBehaviour
             {
                 tileDetails.growthDays = cropDetails.TotalGrowthDays - cropDetails.daysToRegrow;
                 //刷新种子
-                EventHandler.CallRefreshCurrentMap();//这里刷新种子阶段是直接刷新整张地图,而不是只单纯刷新这个种子
+                EventSystem.CallRefreshCurrentMap();//这里刷新种子阶段是直接刷新整张地图,而不是只单纯刷新这个种子
                 /*这里只是改变了当前种子的生长阶段的时间,所以刷新整张地图的话,只有当前种子数据发生变化了,并不会影响地图上的其他物品*/
             }
             else//不可重复生长

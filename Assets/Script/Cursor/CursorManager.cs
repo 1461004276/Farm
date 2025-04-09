@@ -35,15 +35,15 @@ public class CursorManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventHandler.ItemSelectedEvent += OnItemSelectedEvent;//注册一个当选择物品的时候触发的事件
-        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;//切换场景之后触发事件
+        EventSystem.ItemSelectedEvent += OnItemSelectedEvent;//注册一个当选择物品的时候触发的事件
+        EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;//切换场景之后触发事件
     }
     private void OnDisable()
     {
-        EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
-        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventSystem.ItemSelectedEvent -= OnItemSelectedEvent;
+        EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventSystem.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
     }
 
     private void OnBeforeSceneUnloadEvent()
@@ -80,7 +80,7 @@ public class CursorManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && cursorPositionValid)//如果按下鼠标左键切鼠标当前是可用状态
         {
             //执行方法
-            EventHandler.CallMouseClickedEvent(mouseWorldPos, currentItem);
+            EventSystem.CallMouseClickedEvent(mouseWorldPos, currentItem);
         }
     }
     #region 设置鼠标样式
@@ -237,7 +237,7 @@ public class CursorManager : MonoBehaviour
     /// <returns></returns>
     private bool InteractWithUI()
     {
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             return true;
         }

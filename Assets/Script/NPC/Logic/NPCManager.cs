@@ -14,11 +14,11 @@ public class NPCManager : Singleton<NPCManager>
     }
     private void OnEnable()
     {
-        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+        EventSystem.StartNewGameEvent += OnStartNewGameEvent;
     }
     private void OnDisable()
     {
-        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+        EventSystem.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
     private void OnStartNewGameEvent(int index)

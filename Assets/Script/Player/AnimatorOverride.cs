@@ -20,15 +20,15 @@ public class AnimatorOverride : MonoBehaviour
     }
     private void OnEnable()//注册点击事件
     {
-        EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
-        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.HarvestAtPlayerPostion += OnHarvestAtPlayerPostion;
+        EventSystem.ItemSelectedEvent += OnItemSelectedEvent;
+        EventSystem.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventSystem.HarvestAtPlayerPostion += OnHarvestAtPlayerPostion;
     }
     private void OnDisable()
     {
-        EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
-        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.HarvestAtPlayerPostion -= OnHarvestAtPlayerPostion;
+        EventSystem.ItemSelectedEvent -= OnItemSelectedEvent;
+        EventSystem.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventSystem.HarvestAtPlayerPostion -= OnHarvestAtPlayerPostion;
     }
 
     private void OnHarvestAtPlayerPostion(int ID)

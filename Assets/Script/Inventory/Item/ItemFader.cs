@@ -1,7 +1,8 @@
 using DG.Tweening;
 using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
-public class ItemFader : MonoBehaviour //挂载在物体身上，使人物经过道具然后道具透明化的类
+//挂载在需要透明化的物体身上，用于物品逐渐显示或隐藏
+public class ItemFader : MonoBehaviour 
 {
     private SpriteRenderer spriteRender;
 

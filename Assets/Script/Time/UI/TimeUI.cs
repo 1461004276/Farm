@@ -24,13 +24,13 @@ public class TimeUI : MonoBehaviour//将代码逻辑与UI连接到一起的脚�
     }
     private void OnEnable()//注册需要的委托事件
     {
-        EventHandler.GameMinuteEvent += OnGameMinuteEvent;
-        EventHandler.GameDateSeason += OnGameDateSeason;
+        EventSystem.GameMinuteEvent += OnGameMinuteEvent;
+        EventSystem.GameDateSeason += OnGameDateSeason;
     }
     private void OnDisable()//注销需要的委托事件
     {
-        EventHandler.GameMinuteEvent -= OnGameMinuteEvent;
-        EventHandler.GameDateSeason -= OnGameDateSeason;
+        EventSystem.GameMinuteEvent -= OnGameMinuteEvent;
+        EventSystem.GameDateSeason -= OnGameDateSeason;
     }
     private void OnGameMinuteEvent(int minute, int hour,Season season,int day)
     {

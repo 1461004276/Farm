@@ -219,7 +219,7 @@ namespace MFarm.Map
                             itemsInRadius[i].SpawnHarvestItems();
                             Destroy(itemsInRadius[i].gameObject);
                             reapCount++;
-                            if (reapCount >= Settings.reapAmount)
+                            if (reapCount >= Prams.reapAmount)
                             {
                                 break;//限制一下一次性能收割的草数量避免直接收割一大片
                             }

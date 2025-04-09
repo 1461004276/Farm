@@ -40,7 +40,7 @@ namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用�
         private void OnStartNewGameEvent(int index)
         {
             PlayerBag = Instantiate(playerBagTemp);
-            playerMoney = Settings.playerStartMoney;
+            playerMoney = Prams.playerStartMoney;
             boxDataDict.Clear();
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }

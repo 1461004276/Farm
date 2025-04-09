@@ -92,7 +92,7 @@ namespace MFarm.Transition
         {
             isFade = true;//开始阿尔法值转换
             fadeCanvasGroup.blocksRaycasts = true;//开启鼠标遮挡,场景加载时鼠标不能点击任何物品
-            float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / Settings.fadeDuration;//获得一个阿尔法变透明的速度
+            float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / Prams.fadeDuration;//获得一个阿尔法变透明的速度
             while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))//当当前阿尔法值不等于目标阿尔法值就会一直执行动画转换
             {
                 fadeCanvasGroup.alpha = Mathf.MoveTowards(fadeCanvasGroup.alpha, targetAlpha, speed * Time.deltaTime);

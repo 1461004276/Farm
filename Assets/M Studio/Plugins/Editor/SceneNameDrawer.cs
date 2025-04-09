@@ -49,7 +49,7 @@ public class SceneNameDrawer : PropertyDrawer
 
         if (sceneNames.Length == 0)
         {
-            sceneNames = new[] { new GUIContent("Check Your Build Settings") };
+            sceneNames = new[] { new GUIContent("Check Your Build Prams") };
         }
 
         if (!string.IsNullOrEmpty(property.stringValue))

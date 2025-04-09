@@ -73,9 +73,9 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         {
             //编写一个秒针计时器
             tikTime += Time.deltaTime;
-            if (tikTime >= Settings.secondThreshold)
+            if (tikTime >= Prams.secondThreshold)
             {
-                tikTime -= Settings.secondThreshold;
+                tikTime -= Prams.secondThreshold;
                 UpdateGameTime();
             }
         }
@@ -106,22 +106,22 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
     private void UpdateGameTime()//更新游戏时间,秒分年月日依次递进
     {
         gameSecond++;
-        if (gameSecond > Settings.secondHold)
+        if (gameSecond > Prams.secondHold)
         {
             gameMinute++;
             gameSecond = 0;
 
-            if (gameMinute > Settings.minuteHold)
+            if (gameMinute > Prams.minuteHold)
             {
                 gameHour++;
                 gameMinute = 0;
 
-                if (gameHour > Settings.hourHold)
+                if (gameHour > Prams.hourHold)
                 {
                     gameDay++;
                     gameHour = 0;
 
-                    if (gameDay > Settings.dayHold)
+                    if (gameDay > Prams.dayHold)
                     {
                         gameDay = 1;
                         gameMonth++;
@@ -137,7 +137,7 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
                             int seasonNumber = (int)gameSeason;
                             seasonNumber++;
 
-                            if (seasonNumber > Settings.seasonHold)
+                            if (seasonNumber > Prams.seasonHold)
                             {
                                 seasonNumber = 0;
                                 gameYear++;
@@ -168,14 +168,14 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
     /// <returns></returns>
     private LightShift GetCurrentLightShift()
     {
-        if (GameTime >= Settings.morningTime && GameTime < Settings.nightTime)
+        if (GameTime >= Prams.morningTime && GameTime < Prams.nightTime)
         {
-            timeDifference = (float)(GameTime - Settings.morningTime).TotalMinutes;
+            timeDifference = (float)(GameTime - Prams.morningTime).TotalMinutes;
             return LightShift.Morning;
         }
-        if (GameTime < Settings.morningTime || GameTime >= Settings.nightTime)
+        if (GameTime < Prams.morningTime || GameTime >= Prams.nightTime)
         {
-            timeDifference = Mathf.Abs((float)(GameTime - Settings.nightTime).TotalMinutes);
+            timeDifference = Mathf.Abs((float)(GameTime - Prams.nightTime).TotalMinutes);
             Debug.Log(timeDifference);
             return LightShift.Night;
         }

@@ -60,7 +60,7 @@ public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
     private void OnStartNewGameEvent(int index)
     {
         inputDisable = false;
-        transform.position = Settings.playerStartPos;
+        transform.position = Prams.playerStartPos;
     }
 
     private void Update()

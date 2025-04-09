@@ -17,15 +17,15 @@ public class LightControl : MonoBehaviour
     public void ChangeLightShift(Season season,LightShift lightShift,float timeDifference)
     {
         currentLightDetails = lightData.GetLightDetails(season, lightShift);
-        if (timeDifference < Settings.lightChangeDuration)
+        if (timeDifference < Prams.lightChangeDuration)
         {
             //计算颜色差值
-            var colorOffst = (currentLightDetails.lightColor - currentLight.color) / Settings.lightChangeDuration * timeDifference;
+            var colorOffst = (currentLightDetails.lightColor - currentLight.color) / Prams.lightChangeDuration * timeDifference;
             currentLight.color += colorOffst;
-            DOTween.To(() => currentLight.color, c => currentLight.color = c, currentLightDetails.lightColor, Settings.lightChangeDuration - timeDifference);
-            DOTween.To(() => currentLight.intensity, i => currentLight.intensity = i, currentLightDetails.lightAmount, Settings.lightChangeDuration - timeDifference);
+            DOTween.To(() => currentLight.color, c => currentLight.color = c, currentLightDetails.lightColor, Prams.lightChangeDuration - timeDifference);
+            DOTween.To(() => currentLight.intensity, i => currentLight.intensity = i, currentLightDetails.lightAmount, Prams.lightChangeDuration - timeDifference);
         }
-        if (timeDifference >= Settings.lightChangeDuration)
+        if (timeDifference >= Prams.lightChangeDuration)
         {
             currentLight.color = currentLightDetails.lightColor;
             currentLight.intensity = currentLightDetails.lightAmount;

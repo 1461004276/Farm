@@ -181,7 +181,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
         targetScene = currentScene;//初始化目标场景就是当前场景
         //保持在当前坐标的网格中心点
         currentGridPostion = grid.WorldToCell(transform.position);//世界坐标转化为网格坐标
-        transform.position = new Vector3(currentGridPostion.x + Settings.gridCellSize / 2f, currentGridPostion.y + Settings.gridCellSize / 2f, 0);
+        transform.position = new Vector3(currentGridPostion.x + Prams.gridCellSize / 2f, currentGridPostion.y + Prams.gridCellSize / 2f, 0);
         targetGridPostion = currentGridPostion;
     }
     /// <summary>
@@ -222,12 +222,12 @@ public class NPCMovement : MonoBehaviour,ISaveable
             //实际移动距离
             float distance = Vector3.Distance(transform.position, nextWorldPosition);
             //计算NPC的实际移动速度
-            float speed = Mathf.Max(minSpeed, (distance / timeToMove / Settings.secondThreshold));//与最小值作比较是为了确保速度不会低于最小值
+            float speed = Mathf.Max(minSpeed, (distance / timeToMove / Prams.secondThreshold));//与最小值作比较是为了确保速度不会低于最小值
             //速度=距离/时间(m/s)
 
             if (speed <= maxSpeed)//同样不能大于最大移动速度
             {
-                while (Vector3.Distance(transform.position, nextWorldPosition) > Settings.pixelSize)//如果NPC当前距离和下一步要到达的距离还大于一个像素点说明还没有走到
+                while (Vector3.Distance(transform.position, nextWorldPosition) > Prams.pixelSize)//如果NPC当前距离和下一步要到达的距离还大于一个像素点说明还没有走到
                 {
                     dir = (nextWorldPosition - transform.position).normalized;//NPC移动方向
                     Vector2 posOffset = new Vector2(dir.x * speed * Time.fixedDeltaTime, dir.y * speed * Time.fixedDeltaTime);//移动偏差
@@ -268,7 +268,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
                 {
                     Vector2Int fromPos, gotoPos;
                     ScenePath path = sceneRoute.scenePathList[i];
-                    if (path.fromGridCell.x >= Settings.maxGridSize)
+                    if (path.fromGridCell.x >= Prams.maxGridSize)
                     {
                         fromPos = (Vector2Int)currentGridPostion;
                     }
@@ -276,7 +276,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
                     {
                         fromPos = path.fromGridCell;
                     }
-                    if (path.gotoGridCell.x >= Settings.maxGridSize)
+                    if (path.gotoGridCell.x >= Prams.maxGridSize)
                     {
                         gotoPos = schedule.targetGridPosition;
                     }
@@ -316,9 +316,9 @@ public class NPCMovement : MonoBehaviour,ISaveable
             TimeSpan gridMovementStepTime;//定义一个新的时间戳来获取走的每一步的时间戳
 
             if (MoveInDiagonal(step, previousSetp))//判断是否是斜方向移动,斜方向移动和直方向所需要的时间戳不相同
-                gridMovementStepTime = new TimeSpan(0, 0, (int)(Settings.gridCellDiagonalSize / normalSpeed / Settings.secondThreshold));
+                gridMovementStepTime = new TimeSpan(0, 0, (int)(Prams.gridCellDiagonalSize / normalSpeed / Prams.secondThreshold));
             else
-                gridMovementStepTime = new TimeSpan(0, 0, (int)(Settings.gridCellSize / normalSpeed / Settings.secondThreshold));
+                gridMovementStepTime = new TimeSpan(0, 0, (int)(Prams.gridCellSize / normalSpeed / Prams.secondThreshold));
 
             //累加获得下一步的时间戳
             currentGameTime = currentGameTime.Add(gridMovementStepTime);//游戏时间戳和走路时间戳累加起来形成一个时间戳条件
@@ -345,7 +345,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
     private Vector3 GetWorldPosition(Vector3Int gridPos)
     {
         Vector3 worldPos = grid.CellToWorld(gridPos);
-        return new Vector3(worldPos.x + Settings.gridCellSize / 2f, worldPos.y + Settings.gridCellSize / 2f);
+        return new Vector3(worldPos.x + Prams.gridCellSize / 2f, worldPos.y + Prams.gridCellSize / 2f);
     }
     private void SwitchAnimation()
     {
@@ -367,7 +367,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
         //强制面向镜头
         anim.SetFloat("DirX", 0);
         anim.SetFloat("DirY", -1);
-        animationBreakTime = Settings.animationBreakTime;
+        animationBreakTime = Prams.animationBreakTime;
         if (stopAnimationClip != null)
         {
             animOverride[blankAnimationClip] = stopAnimationClip;

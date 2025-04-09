@@ -15,14 +15,14 @@ public class ItemFader : MonoBehaviour //挂载在物体身上，使人物经过
     public void Fadein()
     {
         Color targetColor = new Color(1, 1, 1, 1);
-        spriteRender.DOColor(targetColor, Settings.ItemfadeDuration);
+        spriteRender.DOColor(targetColor, Prams.ItemfadeDuration);
     }
     /// <summary>
     /// 逐渐半透明
     /// </summary>
     public void FadeOut()
     {
-        Color targetColor = new Color(1, 1, 1, Settings.targetAlpha);
-        spriteRender.DOColor(targetColor, Settings.ItemfadeDuration);
+        Color targetColor = new Color(1, 1, 1, Prams.targetAlpha);
+        spriteRender.DOColor(targetColor, Prams.ItemfadeDuration);
     }
 }

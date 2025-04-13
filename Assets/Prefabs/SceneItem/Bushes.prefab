@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184074558468789676}
   - component: {fileID: 3216711953680380354}
-  - component: {fileID: 8807006040454074059}
-  - component: {fileID: 227157523446134295}
+  - component: {fileID: 4699479346278526040}
   m_Layer: 0
   m_Name: Bushes
   m_TagString: Untagged
@@ -80,7 +79,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.903209, y: 1.5978667}
   m_EdgeRadius: 0
---- !u!114 &8807006040454074059
+--- !u!114 &4699479346278526040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,23 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3315459104312263390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 913c9340e4fa4bd58751e426d192b6a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 85e3d9f732d12445583ae2d9eae21ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &227157523446134295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3315459104312263390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d9d7e3abc551b4398d4c58f53744c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 4759983865407009927}
-  sprites:
+  bushesRenderer: {fileID: 4759983865407009927}
+  bushesSprites:
   - {fileID: 21300000, guid: f1b1115ca9b854af7bbbb62be7fc47da, type: 3}
   - {fileID: 21300000, guid: 3ea72fe4137c444dbbbddb8e64ab97ef, type: 3}
   - {fileID: 21300000, guid: 72d51741fece74e6c9d6cc266bd3e961, type: 3}
@@ -114,7 +101,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 166c76cc13e124cc29fcade2273d9631, type: 3}
   - {fileID: 21300000, guid: 8fc792dbeaf99417180031a1f6b289d5, type: 3}
   - {fileID: 21300000, guid: 3eb9fddd25b8548139877c93ed12a178, type: 3}
-  bushType: -1
+  bushesType: 0
 --- !u!1 &6466612219019510311
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1005237211252473485}
   - component: {fileID: 4759983865407009927}
-  - component: {fileID: 4451680868691643466}
+  - component: {fileID: 6725156347749369343}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -187,7 +174,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -975779053
-  m_SortingLayer: 8
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 166c76cc13e124cc29fcade2273d9631, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -200,7 +187,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &4451680868691643466
+--- !u!114 &6725156347749369343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,6 +196,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6466612219019510311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f36e2c5a63d004c868edde15be1d50, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b759647b2ca9f46881a22d878eb805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

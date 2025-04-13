@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 [CreateAssetMenu(fileName ="SoundDetailsList_SO",menuName ="Sound/SoundDetailsList")]
 public class SoundDetailsList_SO : ScriptableObject

@@ -1,29 +1,32 @@
 using UnityEngine;
 
 //单例模式基类
-public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+namespace Script.Utilities
 {
-    private static T _instance;
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
-        get => _instance;
-    }
-    protected virtual void Awake()
-    {
-        if(_instance != null)
+        private static T _instance;
+        public static T Instance
         {
-            Destroy(gameObject);
+            get => _instance;
         }
-        else
+        protected virtual void Awake()
         {
-            _instance = (T)this;
+            if(_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = (T)this;
+            }
         }
-    }
-    protected virtual void OnDestroy()
-    {
-        if(_instance == this)
+        protected virtual void OnDestroy()
         {
-            _instance = null;
+            if(_instance == this)
+            {
+                _instance = null;
+            }
         }
     }
 }

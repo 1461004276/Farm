@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 [CreateAssetMenu(fileName ="BulePrintDataList_SO",menuName ="Inventory/BulePrintDataList_SO")]
 public class BluePrintDataList_SO : ScriptableObject//存放建造图纸类的数据库

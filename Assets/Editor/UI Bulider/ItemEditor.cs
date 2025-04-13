@@ -5,17 +5,18 @@ using UnityEditor.UIElements;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Script.Utilities;
 
 public class ItemEditor : EditorWindow
 {
-    private ItemDataList_SO dataBase; //´´½¨µÄÊý¾Ý¿âÖÐµÄÊý¾Ý
-    private List<ItemDetails> itemList = new List<ItemDetails>();//newÒ»ÏÂItemDtails,Ïàµ±ÓÚÊý¾Ý¿âÖÐµÄÏêÏ¸Êý¾ÝÁÐ±í
-    private VisualTreeAsset itemRowTemplate; //»ñÈ¡×Ô¼ºÔÚUIToolkitÖÐ¶¨ÒåµÄÑùÊ½
-    private ListView itemListView;//»ñµÃVisualElementÖÐµÄ¹ö¶¯ÁÐ±í
-    private ScrollView itemDetailsSection;//»ñÈ¡UITookitÓÒ²à¹öÂÖ
-    private ItemDetails activeItem;//»ñÈ¡µ±Ç°Ñ¡ÖÐµÄµÀ¾ß(Àà)
-    private VisualElement iconPreview;//iconÔ¤ÀÀ
-    private Sprite defaultIcon;//Ä¬ÈÏÔ¤ÀÀÍ¼Æ¬
+    private ItemDataList_SO dataBase; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+    private List<ItemDetails> itemList = new List<ItemDetails>();//newÒ»ï¿½ï¿½ItemDtails,ï¿½àµ±ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    private VisualTreeAsset itemRowTemplate; //ï¿½ï¿½È¡ï¿½Ô¼ï¿½ï¿½ï¿½UIToolkitï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+    private ListView itemListView;//ï¿½ï¿½ï¿½VisualElementï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    private ScrollView itemDetailsSection;//ï¿½ï¿½È¡UITookitï¿½Ò²ï¿½ï¿½ï¿½ï¿½
+    private ItemDetails activeItem;//ï¿½ï¿½È¡ï¿½ï¿½Ç°Ñ¡ï¿½ÐµÄµï¿½ï¿½ï¿½(ï¿½ï¿½)
+    private VisualElement iconPreview;//iconÔ¤ï¿½ï¿½
+    private Sprite defaultIcon;//Ä¬ï¿½ï¿½Ô¤ï¿½ï¿½Í¼Æ¬
 
     [MenuItem("Doggo/ItemEditor")]
     public static void ShowExample()
@@ -38,32 +39,32 @@ public class ItemEditor : EditorWindow
         VisualElement labelFromUXML = visualTree.Instantiate();
         root.Add(labelFromUXML);
 
-        //Ö±½ÓÍ¨¹ý¾ø¶ÔÂ·¾¶·½Ê½ÄÃµ½ÑùÊ½Ä£°å
+        //Ö±ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ãµï¿½ï¿½ï¿½Ê½Ä£ï¿½ï¿½
         itemRowTemplate = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/UI Bulider/ItemRowTemplate.uxml");
 
-        //ÄÃµ½Ä¬ÈÏÍ¼Æ¬
+        //ï¿½Ãµï¿½Ä¬ï¿½ï¿½Í¼Æ¬
         defaultIcon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/M Studio/Art/Items/Icons/icon_M.png");
 
-        //±äÁ¿¸³Öµ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
         itemListView = root.Q<VisualElement>("ItemList").Q<ListView>("ListView");
-        itemDetailsSection = root.Q<ScrollView>("ItemDetails");//¹öÂÖÒ³Ãæ¸³Öµ
-        iconPreview = itemDetailsSection.Q<VisualElement>("Icon");//ÕÒµ½µ±Ç°¹öÂÖÏêÇéÒ³ÃæµÄIcon
+        itemDetailsSection = root.Q<ScrollView>("ItemDetails");//ï¿½ï¿½ï¿½ï¿½Ò³ï¿½æ¸³Öµ
+        iconPreview = itemDetailsSection.Q<VisualElement>("Icon");//ï¿½Òµï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Icon
         root.Q<Button>("AddButton").clicked += OnAddItemClicked;
         root.Q<Button>("DeleteButton").clicked += OnDeleteClicked;
 
-        //¼ÓÔØÊý¾Ý
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         LoadDataBase();
 
-        //Éú³ÉListView
+        //ï¿½ï¿½ï¿½ï¿½ListView
         GenerateListView();
     }
 
-    #region °´¼üÊÂ¼þ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     private void OnDeleteClicked()
     {
         itemList.Remove(activeItem);
-        itemListView.Rebuild();//Ë¢ÐÂÒ»ÏÂ¹öÂÖÁÐ±í£¬Ë¢ÐÂÊý¾Ý
-        itemDetailsSection.visible = false;//É¾³ýÁÐ±íºóÊý¾Ý¶ªÊ§£¬ËùÒÔ¹Ø±ÕÏêÇéÃæ°å
+        itemListView.Rebuild();//Ë¢ï¿½ï¿½Ò»ï¿½Â¹ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        itemDetailsSection.visible = false;//É¾ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     private void OnAddItemClicked()
@@ -72,45 +73,45 @@ public class ItemEditor : EditorWindow
         newItem.itemID = 1001 + itemList.Count;
         newItem.itemName = "NEW ITEM";
         itemList.Add(newItem);
-        itemListView.Rebuild();//Ë¢ÐÂÒ»ÏÂÊý¾Ý
+        itemListView.Rebuild();//Ë¢ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
     #endregion
-    private void LoadDataBase()//ÄÃµ½AssetsÖÐÎÒÃÇ´´½¨µÄÊý¾Ý¿âÎÄ¼þ
+    private void LoadDataBase()//ï¿½Ãµï¿½Assetsï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¼ï¿½
     {
-        var dataArray = AssetDatabase.FindAssets("ItemDataList_SO");//ÔÚÕû¸öAssetsÖÐÕÒµ½ÀàÐÍÎªItemDataList_SOµÄ×ÊÔ´ÎÄ¼þ²¢ÁÐÎªÊý×é,²¢»ñµÃ¸ÃÀàÎÄ¼þµÄGUID
-        if (dataArray.Length > 1)//Èç¹ûAssetsÖÐ´æÔÚItemDataList_SOÀà×ÊÔ´ÎÄ¼þ
+        var dataArray = AssetDatabase.FindAssets("ItemDataList_SO");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Assetsï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ÎªItemDataList_SOï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½GUID
+        if (dataArray.Length > 1)//ï¿½ï¿½ï¿½Assetsï¿½Ð´ï¿½ï¿½ï¿½ItemDataList_SOï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½
         {
-            var path = AssetDatabase.GUIDToAssetPath(dataArray[0]);//Í¨¹ý»ñµÃµÄÊý×éÖÐµÄ¾ßÌåÒ»¸öÎÄ¼þµÄGUIDÀ´²éÕÒÎÄ¼þµÄÂ·¾¶
-            //ÒòÎªÎÒÖ»ÓÐÒ»¸öItemDataList_SOÎÄ¼þ,ËùÒÔÎÒ¿ÉÒÔÖ±½ÓÐ´dataArray[0]
-            dataBase = AssetDatabase.LoadAssetAtPath(path, typeof(ItemDataList_SO)) as ItemDataList_SO;//ÔÙÍ¨¹ýÎÄ¼þÂ·¾¶¼ÓÔØÊý¾Ý¿â×ÊÔ´
+            var path = AssetDatabase.GUIDToAssetPath(dataArray[0]);//Í¨ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¾ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½GUIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+            //ï¿½ï¿½Îªï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ItemDataList_SOï¿½Ä¼ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ð´dataArray[0]
+            dataBase = AssetDatabase.LoadAssetAtPath(path, typeof(ItemDataList_SO)) as ItemDataList_SO;//ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ô´
         }
-        itemList = dataBase.itemDetailsList;//ÎªÁÐ±í¸³Öµ
-        EditorUtility.SetDirty(dataBase);//±ê×¢Ò»ÏÂÊý¾Ý,±ØÐë±ê×¢Ò»ÏÂÊý¾Ý·ñÔòÎÞ·¨±£´æÊý¾Ý
+        itemList = dataBase.itemDetailsList;//Îªï¿½Ð±ï¿½ï¿½ï¿½Öµ
+        EditorUtility.SetDirty(dataBase);//ï¿½ï¿½×¢Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½×¢Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
-    private void GenerateListView()//Éú³ÉListViewº¯Êý·½·¨
+    private void GenerateListView()//ï¿½ï¿½ï¿½ï¿½ListViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        Func<VisualElement> makeItem = () => itemRowTemplate.CloneTree(); //Ã¿µ÷ÓÃÒ»´ÎÉú³ÉListView·½·¨¾Í¿ËÂ¡Ò»·ÝÑùÊ½Ä£°å
+        Func<VisualElement> makeItem = () => itemRowTemplate.CloneTree(); //Ã¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ListViewï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½Â¡Ò»ï¿½ï¿½ï¿½ï¿½Ê½Ä£ï¿½ï¿½
         Action<VisualElement, int> bindItem = (e, i) =>
          {
-             if (i < itemList.Count)//±ØÐëÈ·±£ÐòºÅÐ¡ÓÚÁÐ±íÖÐµÄ×ÜÌåÊýÁ¿·ñÔò»á±¨¿Õ
+             if (i < itemList.Count)//ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á±¨ï¿½ï¿½
              {
                  if (itemList[i].itemIcon != null)
                  {
-                     e.Q<VisualElement>("Icon").style.backgroundImage = itemList[i].itemIcon.texture;//½«Êý¾Ý¿âÖÐµÄÊý¾Ý¸³Öµ°ó¶¨¸øUI Toolkit
+                     e.Q<VisualElement>("Icon").style.backgroundImage = itemList[i].itemIcon.texture;//ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý¸ï¿½Öµï¿½ó¶¨¸ï¿½UI Toolkit
                  }
                  e.Q<Label>("Name").text = itemList[i] == null ? "NO ITEM" : itemList[i].itemName;
              }
          };
-        //e.Q<VisualElement>:¾ÍÊÇ´ú±íUI ToolkitÖÐ¾ßÌåµÄÔªËØ,VisualElement¾ÍÊÇÀïÃæµÄ¿Õ°×ÈÝÆ÷
-        //e.Q<Label>´ú±íµÄÊÇÎÄ±¾±êÇ©£¬ÔÚ´ËÓÃ´úÂë½«ËûÃÇÊµÀý»¯
+        //e.Q<VisualElement>:ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½UI Toolkitï¿½Ð¾ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½,VisualElementï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Õ°ï¿½ï¿½ï¿½ï¿½ï¿½
+        //e.Q<Label>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ã´ï¿½ï¿½ë½«ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
 
-        itemListView.fixedItemHeight = 60;//¹Ì¶¨¹öÂÖ¸ß¶È
-        itemListView.itemsSource = itemList;//½«ÁÐ±íÖÐµÄÊý¾Ý·ÅÈë¹öÂÖÖÐ
-        itemListView.makeItem = makeItem;//ÏÈ½«Ä£°å¿ËÂ¡ÔÚ¹öÂÖÖÐ£¬ÓÚÊÇ¹öÂÖ¾ÍÓµÓÐÁËIconºÍNameÁ½¸öToolkitÔªËØ
-        itemListView.bindItem = bindItem;//ÔÚÕâÀïµ÷ÓÃActionÎ¯ÍÐ¾ÍÄÜÊµÏÖ½«Êý¾Ý¿âÖ¸¶¨Êý¾Ý°ó¶¨ÖÁToolkit
+        itemListView.fixedItemHeight = 60;//ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½Ö¸ß¶ï¿½
+        itemListView.itemsSource = itemList;//ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        itemListView.makeItem = makeItem;//ï¿½È½ï¿½Ä£ï¿½ï¿½ï¿½Â¡ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½Ö¾ï¿½Óµï¿½ï¿½ï¿½ï¿½Iconï¿½ï¿½Nameï¿½ï¿½ï¿½ï¿½ToolkitÔªï¿½ï¿½
+        itemListView.bindItem = bindItem;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ActionÎ¯ï¿½Ð¾ï¿½ï¿½ï¿½Êµï¿½Ö½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Toolkit
 
-        itemListView.onSelectionChange += OnListSelectionChange;//ÊÂ¼þÌí¼ÓÎ¯ÍÐ
-        itemDetailsSection.visible = false;//ÓÒ²àÃæ°åÐÅÏ¢²»¿É¼û(Ä¬ÈÏµã½øÈ¥µÄÊ±ºò²»»áÏÔÊ¾ÈÎºÎÎïÆ·ÐÅÏ¢£¬Ö»ÓÐµã»÷Ò»¸ö´¥·¢º¯Êýºó²ÅÏÔÊ¾)
+        itemListView.onSelectionChange += OnListSelectionChange;//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Î¯ï¿½ï¿½
+        itemDetailsSection.visible = false;//ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½É¼ï¿½(Ä¬ï¿½Ïµï¿½ï¿½È¥ï¿½ï¿½Ê±ï¿½ò²»»ï¿½ï¿½ï¿½Ê¾ï¿½Îºï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½Ö»ï¿½Ðµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾)
     }
     private void OnListSelectionChange(IEnumerable<object> selectedItem)
     {
@@ -120,21 +121,21 @@ public class ItemEditor : EditorWindow
     }
     private void GetItemDetails()
     {
-        itemDetailsSection.MarkDirtyRepaint();//ÔÚÏÂÒ»Ö¡´¥·¢ÖÐÖØ»æ£¬¿ÉÒÔ³·Ïú£¬·µ»Ø¹¦ÄÜ
-        itemDetailsSection.Q<IntegerField>("ItemID").value = activeItem.itemID;//½«µ±Ç°Ñ¡ÖÐµÄµÀ¾ßÀàµÄIDÖµ´«µÝ¸ø¹ö¶¯ÏêÇéÁÐ±íÖÐµÄID
+        itemDetailsSection.MarkDirtyRepaint();//ï¿½ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø»æ£¬ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½
+        itemDetailsSection.Q<IntegerField>("ItemID").value = activeItem.itemID;//ï¿½ï¿½ï¿½ï¿½Ç°Ñ¡ï¿½ÐµÄµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDÖµï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ID
         itemDetailsSection.Q<IntegerField>("ItemID").RegisterValueChangedCallback(evt =>
         {
             activeItem.itemID = evt.newValue;
-        });//µ±IDÖµ·¢Éú¸Ä±äÖ´ÐÐ»Øµ÷º¯Êý
+        });//ï¿½ï¿½IDÖµï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ö´ï¿½Ð»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 
         itemDetailsSection.Q<TextField>("ItemName").value = activeItem.itemName;
         itemDetailsSection.Q<TextField>("ItemName").RegisterValueChangedCallback(evt =>
         {
             activeItem.itemName = evt.newValue;
-            itemListView.Rebuild();//ÖØ¹¹,Ë¢ÐÂÒ»ÏÂ,µ±ÔÚÏêÇéÃæ°åÖÐÐÞ¸ÄÁËµÀ¾ßµÄÃû×Ö,×ó²à¹ö¶¯ÁÐ±íÖÐµÄÃû×Ö¾Í»áË¢ÐÂÖØ¹¹
+            itemListView.Rebuild();//ï¿½Ø¹ï¿½,Ë¢ï¿½ï¿½Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Ëµï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ö¾Í»ï¿½Ë¢ï¿½ï¿½ï¿½Ø¹ï¿½
         });
 
-        iconPreview.style.backgroundImage = activeItem.itemIcon == null?defaultIcon.texture:activeItem.itemIcon.texture;//»ñÈ¡µ±Ç°Ñ¡ÖÐµÄµÀ¾ßµÄIcon,Èç¹ûÎªnull¾Í·ÅÈëÄ¬ÈÏicon
+        iconPreview.style.backgroundImage = activeItem.itemIcon == null?defaultIcon.texture:activeItem.itemIcon.texture;//ï¿½ï¿½È¡ï¿½ï¿½Ç°Ñ¡ï¿½ÐµÄµï¿½ï¿½ßµï¿½Icon,ï¿½ï¿½ï¿½Îªnullï¿½Í·ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½icon
         itemDetailsSection.Q<ObjectField>("ItemIcon").value = activeItem.itemIcon;
         itemDetailsSection.Q<ObjectField>("ItemIcon").RegisterValueChangedCallback(evt =>
         {
@@ -145,7 +146,7 @@ public class ItemEditor : EditorWindow
             itemListView.Rebuild();
         });
 
-        //ÆäËûËùÓÐ±äÁ¿µÄ°ó¶¨
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ä°ï¿½
         itemDetailsSection.Q<ObjectField>("ItemSprite").value = activeItem.itemOnWorldIcon;
         itemDetailsSection.Q<ObjectField>("ItemSprite").RegisterValueChangedCallback(evt =>
         {

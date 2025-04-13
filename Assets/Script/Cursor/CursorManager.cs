@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using MFarm.Map;
+using Script.Utilities;
+using EventSystem = Script.Utilities.EventSystem;
+
 //此脚本来控制鼠标在不同功能下切换不同的状态图片
 public class CursorManager : MonoBehaviour
 {

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MFarm.Save;
+using Script.Utilities;
+
 namespace MFarm.Inventory //手动添加一个命名空间，别的类不使用该命名空间就不可以调用到该命名空间中的变量或者函数，达到保护作用
 {
     public class InventoryManager : Singleton<InventoryManager>,ISaveable//数据管理类

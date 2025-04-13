@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 //设置键盘快捷键的脚本
 namespace MFarm.Inventory

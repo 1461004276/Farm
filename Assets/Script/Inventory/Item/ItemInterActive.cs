@@ -1,4 +1,5 @@
 using System.Collections;
+using Script.Utilities;
 using UnityEngine;
 //物品摇晃效果脚本
 public class ItemInterActive : MonoBehaviour

@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private GameObject menuCanvas;
+    private GameObject _menuCanvas;
     public GameObject menuPrefab;
     public Button settingsBtn;
     public GameObject pausePanel;
@@ -26,16 +27,16 @@ public class UIManager : MonoBehaviour
 
     private void OnAfterSceneLoadedEvent()
     {
-        if (menuCanvas.transform.childCount > 0)
+        if (_menuCanvas.transform.childCount > 0)
         {
-            Destroy(menuCanvas.transform.GetChild(0).gameObject);
+            Destroy(_menuCanvas.transform.GetChild(0).gameObject);
         }
     }
 
     private void Start()
     {
-        menuCanvas = GameObject.FindWithTag("MenuCanvas");
-        Instantiate(menuPrefab, menuCanvas.transform);
+        _menuCanvas = GameObject.FindWithTag("MenuCanvas");
+        Instantiate(menuPrefab, _menuCanvas.transform);
     }
     private void TogglePausePanel()
     {
@@ -43,13 +44,13 @@ public class UIManager : MonoBehaviour
         if (isOpen)
         {
             pausePanel.SetActive(false);
-            Time.timeScale = 1;
+            Time.timeScale = 1f;
         }
         else
         {
-            System.GC.Collect();//在游戏暂停时强制进行垃圾回收,提高游戏性能
+            GC.Collect();//在游戏暂停时强制进行垃圾回收,提高游戏性能
             pausePanel.SetActive(true);
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
         }
     }
     public void ReturnMenuCanvas()
@@ -62,7 +63,7 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(false);
         EventSystem.CallEndGameEvent();
         yield return new WaitForSeconds(1.0f);
-        Instantiate(menuPrefab, menuCanvas.transform);
+        Instantiate(menuPrefab, _menuCanvas.transform);
     }
     public void GameEndEvent()
     {

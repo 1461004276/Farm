@@ -1,7 +1,10 @@
+using Script.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using EventSystem = Script.Utilities.EventSystem;
+
 namespace MFarm.Inventory
 {
     public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler//调用几个unity自带的点按事件接口(点击,开始拖拽,正在拖拽,拖拽结束)

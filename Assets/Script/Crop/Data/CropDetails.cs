@@ -1,3 +1,4 @@
+using Script.Utilities;
 using UnityEngine;
 [System.Serializable]//必须序列化之后,在引擎面板才能可视化
 public class CropDetails

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using MFarm.Save;
+using Script.Utilities;
+
 public class TimeManager : Singleton<TimeManager>,ISaveable
 {
     private int gameSecond, gameMinute, gameHour, gameDay, gameMonth, gameYear;

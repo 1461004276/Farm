@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;//自定义Timeline的命名空间
 using MFarm.Dialogue;
+using Script.Utilities;
+
 [System.Serializable]
 public class DialogueBehaviour : PlayableBehaviour//一个基类接口,可以让创作者使用该接口里的方法函数等来自定义Timeline中的事件
 {

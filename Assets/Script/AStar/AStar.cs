@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MFarm.Map;
+using Script.Utilities;
+
 //实现AStar算法的逻辑,挂载至NPC身上来管理NPC
 //NPC在移动时执行AStar算法计算出自己移动的最短路径
 namespace MFarm.AStar

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 [CreateAssetMenu(fileName ="MapData_SO",menuName ="Map/MapData")]
 public class MapData_SO : ScriptableObject

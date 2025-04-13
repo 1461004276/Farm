@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MFarm.Save;
+using Script.Utilities;
 
 public class Player : MonoBehaviour,ISaveable //控制玩家基本操作的类
 {

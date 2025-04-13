@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Script.Utilities;
 using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 //挂载在需要透明化的物体身上，用于物品逐渐显示或隐藏

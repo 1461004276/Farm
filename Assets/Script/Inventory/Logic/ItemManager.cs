@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MFarm.Save;
+using Script.Utilities;
+
 //专门用来管理世界地图中所有的物品的管理类
 namespace MFarm.Inventory
 {

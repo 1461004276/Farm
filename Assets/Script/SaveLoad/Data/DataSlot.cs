@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MFarm.Transition;
+using Script.Utilities;
+
 namespace MFarm.Save
 {
     public class DataSlot

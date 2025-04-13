@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 [CreateAssetMenu(fileName ="InventoryBag_SO",menuName ="Inventory/InventoryBag_SO")]
 public class InventoryBag_SO : ScriptableObject//背包数据库

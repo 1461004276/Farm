@@ -2,6 +2,7 @@ using System;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Utilities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 //该脚本挂载在每一个瓦片地图上面

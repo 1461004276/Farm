@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MFarm.Inventory;
+using Script.Utilities;
+
 //将ItemDetails的一些属性传入到提示面板中去
 public class ItemToolTip : MonoBehaviour
 {

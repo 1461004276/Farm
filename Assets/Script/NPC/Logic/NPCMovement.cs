@@ -5,6 +5,8 @@ using MFarm.AStar;
 using UnityEngine.SceneManagement;
 using System;
 using MFarm.Save;
+using Script.Utilities;
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class NPCMovement : MonoBehaviour,ISaveable

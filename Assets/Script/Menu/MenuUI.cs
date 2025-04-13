@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuUI : MonoBehaviour
@@ -11,8 +9,9 @@ public class MenuUI : MonoBehaviour
         {
             if (i == index)
             {
-                //Tips:Unity在Hierarchy同层级面板中优先显示在底部的Object!
-                panels[i].transform.SetAsLastSibling();//SetAsLastSibling()函数:将当前object中的Hierarchy面板的transfrom移动到列表最下面(最后)
+                //Unity在Hierarchy同层级面板中渲染顺序是按照从上到下顺序的，所以这里需要将当前面板的transform移动到列表最下面(最后)
+                //SetAsLastSibling()函数:将当前object中的Hierarchy面板的transfrom移动到列表最下面(最后)
+                panels[i].transform.SetAsLastSibling();
             }
         }
     }

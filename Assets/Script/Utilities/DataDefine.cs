@@ -65,7 +65,6 @@ namespace Script.Utilities
     [System.Serializable]
     public class SceneFurniture//代表场景中玩家自己新建造的家具类
     {
-        //它们有什么属性↓
         //TODO:更多属性信息
         public int ItemID;
         public SerializableVector3 position;//它们有ID和位置信息

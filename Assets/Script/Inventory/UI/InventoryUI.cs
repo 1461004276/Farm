@@ -100,7 +100,7 @@ namespace MFarm.Inventory
                 bagOpened = true;
             }
             //更新UI显示
-            OnUpdateInventoryUI(InventoryLocation.Box, bagData.itemList);
+            OnUpdateInventoryUI(InventoryFrom.Box, bagData.itemList);
         }
 
         private void OnBeforeSceneUnloadEvent()
@@ -108,11 +108,11 @@ namespace MFarm.Inventory
             UpdateSlotHighlight(-1);
         }
 
-        private void OnUpdateInventoryUI(InventoryLocation location, List<InventoryItem> list)
+        private void OnUpdateInventoryUI(InventoryFrom from, List<InventoryItem> list)
         {
-            switch (location)
+            switch (from)
             {
-                case InventoryLocation.Player:
+                case InventoryFrom.Player:
                     for (int i = 0; i < playerSlots.Length; i++)
                     {
                         if (list[i].itemAmount > 0)//只有背包中的物品数量大于0才能调用更新格子的函数
@@ -126,7 +126,7 @@ namespace MFarm.Inventory
                         }
                     }
                     break;
-                case InventoryLocation.Box:
+                case InventoryFrom.Box:
                     for (int i = 0; i < baseBagSlots.Count; i++)
                     {
                         if (list[i].itemAmount > 0)//只有背包中的物品数量大于0才能调用更新格子的函数

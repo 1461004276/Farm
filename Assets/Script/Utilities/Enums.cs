@@ -25,7 +25,7 @@ namespace Script.Utilities
     {
         Bag,Shop,Box
     }
-    public enum InventoryLocation//判断UI更新到哪里，是更新人物身上的格子还是箱子里的格子
+    public enum InventoryFrom//判断UI更新到哪里，是更新人物身上的格子还是箱子里的格子
     {
         Player,Box
     }

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Script.Utilities;
 using UnityEngine;
+
 namespace MFarm.Inventory
 {
     public class ItemPickUp : MonoBehaviour
@@ -11,7 +10,7 @@ namespace MFarm.Inventory
             Item item = other.GetComponent<Item>();
             if (item != null)
             {
-                if (item.itemDetails.canPickedUp)
+                if (item.itemInfos.canPickedUp)
                 {
                     //拾取物品添加到背包
                     InventoryManager.Instance.AddItem(item, true);

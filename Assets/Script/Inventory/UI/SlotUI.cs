@@ -22,15 +22,15 @@ namespace MFarm.Inventory
         //物品信息
         public ItemDetails itemDetails;
         public int itemAmount;
-        public InventoryLocation Location//属性
+        public InventoryFrom From//属性
         {
             get//可读
             {
                 return slotType switch
                 {
-                    SlotType.Bag => InventoryLocation.Player,
-                    SlotType.Box => InventoryLocation.Box,
-                    _ => InventoryLocation.Player
+                    SlotType.Bag => InventoryFrom.Player,
+                    SlotType.Box => InventoryFrom.Box,
+                    _ => InventoryFrom.Player
                 };
             }
         }
@@ -132,18 +132,18 @@ namespace MFarm.Inventory
                 else if(slotType != SlotType.Shop && targatSlot.slotType != SlotType.Shop&&slotType != targatSlot.slotType)
                 {
                     //跨背包数据交换物品
-                    InventoryManager.Instance.SwapItem(Location, slotIndex, targatSlot.Location, targatSlot.slotIndex);
+                    InventoryManager.Instance.SwapItem(From, slotIndex, targatSlot.From, targatSlot.slotIndex);
                 }
                 //拖拽完成后关闭所有的高亮显示
                 inventoryUI.UpdateSlotHighlight(-1);
             }
             /*else//测试扔在地上
             {
-                if (itemDetails.canCarried)
+                if (itemInfos.canCarried)
                 {
                     //鼠标对应的世界地图上的坐标
                     var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));//将鼠标的屏幕坐标转化为世界坐标
-                    EventSystem.CallInstantiateItemInScene(itemDetails.itemID, pos);
+                    EventSystem.CallInstantiateItemInScene(itemInfos.itemID, pos);
                 }
 
             }*/

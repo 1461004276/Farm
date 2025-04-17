@@ -197,7 +197,7 @@ namespace MFarm.AStar
             {
                 MovementStep newStep = new MovementStep();
                 newStep.sceneName = sceneName;
-                newStep.gridCoordinate = new Vector2Int(nextNode.gridPosition.x + originX, nextNode.gridPosition.y + originY);
+                newStep.gridPostion = new Vector2Int(nextNode.gridPosition.x + originX, nextNode.gridPosition.y + originY);
                 //压入堆栈
                 npcMovementStep.Push(newStep);
                 nextNode = nextNode.parentNode;//当这个节点压入堆栈之后就将它的父节点变为当前节点,依次下去就能反向得到整条路径

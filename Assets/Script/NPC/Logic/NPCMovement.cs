@@ -198,7 +198,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
                 MovementStep step = movementSteps.Pop();//拿到堆栈中的第一步并且从堆栈中移除它
                 currentScene = step.sceneName;//当前场景等于步骤中存放的场景
                 CheckVisiable();//实时检测NPC是否可见
-                nextGridPosition = (Vector3Int)step.gridCoordinate;
+                nextGridPosition = (Vector3Int)step.gridPostion;
                 TimeSpan stepTime = new TimeSpan(step.hour, step.minute, step.second);//拿到这一步的时间戳
                 MoveToGridPosition(nextGridPosition, stepTime);
             }
@@ -337,7 +337,7 @@ public class NPCMovement : MonoBehaviour,ISaveable
     /// <returns></returns>
     private bool MoveInDiagonal(MovementStep currentStep, MovementStep previousStep)
     {
-        return (currentStep.gridCoordinate.x != previousStep.gridCoordinate.x) && (currentStep.gridCoordinate.y != previousStep.gridCoordinate.y);
+        return (currentStep.gridPostion.x != previousStep.gridPostion.x) && (currentStep.gridPostion.y != previousStep.gridPostion.y);
     }
     /// <summary>
     /// 得到网格中心的世界坐标

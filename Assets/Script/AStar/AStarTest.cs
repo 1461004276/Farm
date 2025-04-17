@@ -58,7 +58,7 @@ namespace MFarm.AStar
                     aStar.BuildPath(sceneName, startPos, finishPos, npcMovementStepStack);
                     foreach (var step in npcMovementStepStack)
                     {
-                        displayMap.SetTile((Vector3Int)step.gridCoordinate, displayTile);
+                        displayMap.SetTile((Vector3Int)step.gridPostion, displayTile);
                     }
                 }
                 else
@@ -67,7 +67,7 @@ namespace MFarm.AStar
                     {
                         foreach (var step in npcMovementStepStack)
                         {
-                            displayMap.SetTile((Vector3Int)step.gridCoordinate, null);
+                            displayMap.SetTile((Vector3Int)step.gridPostion, null);
                         }
                         npcMovementStepStack.Clear();
                     }

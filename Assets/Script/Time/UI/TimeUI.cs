@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using Script.Utilities;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeUI : MonoBehaviour//将代码逻辑与UI连接到一起的脚本
@@ -14,12 +13,12 @@ public class TimeUI : MonoBehaviour//将代码逻辑与UI连接到一起的脚�
     public TextMeshProUGUI dataText;
     public TextMeshProUGUI timeText;
     public Sprite[] seasonSprites;//存放四张季节图片的数组
-    private List<GameObject> clockBlocks = new List<GameObject>();
+    private List<GameObject> _clockBlocks = new List<GameObject>();
     private void Awake()
     {
         for (int i = 0; i < clockParent.childCount; i++)
         {
-            clockBlocks.Add(clockParent.GetChild(i).gameObject);
+            _clockBlocks.Add(clockParent.GetChild(i).gameObject);
             clockParent.GetChild(i).gameObject.SetActive(false);
         }
     }
@@ -54,19 +53,19 @@ public class TimeUI : MonoBehaviour//将代码逻辑与UI连接到一起的脚�
 
         if (index == 0)
         {
-            foreach (var item in clockBlocks)
+            foreach (var item in _clockBlocks)
             {
                 item.SetActive(false);
             }
         }
         else
         {
-            for (int i = 0; i < clockBlocks.Count; i++)
+            for (int i = 0; i < _clockBlocks.Count; i++)
             {
                 if (i < index + 1)
-                    clockBlocks[i].SetActive(true);
+                    _clockBlocks[i].SetActive(true);
                 else
-                    clockBlocks[i].SetActive(false);
+                    _clockBlocks[i].SetActive(false);
             }
         }
     }

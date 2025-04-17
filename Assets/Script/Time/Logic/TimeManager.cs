@@ -8,11 +8,11 @@ using Script.Utilities;
 public class TimeManager : Singleton<TimeManager>,ISaveable
 {
     private int gameSecond, gameMinute, gameHour, gameDay, gameMonth, gameYear;
-    private Season gameSeason = Season.春天;//默认游戏进入为春天
-    private int monthInSeason = 3;//三个月为一个季节
-    private bool gameClockPause;//定义一个布尔值来控制游戏的暂停
-    private float tikTime;//计时器
-    private float timeDifference;//灯光时间差
+    private Season _gameSeason = Season.春天;//默认游戏进入为春天
+    private int _monthInSeason = 3;//三个月为一个季节
+    private bool _gameClockPause;//定义一个布尔值来控制游戏的暂停
+    private float _timeCount;//计时器
+    private float _lightTimeDifference;//灯光时间差
     public TimeSpan GameTime => new TimeSpan(gameHour, gameMinute, gameSecond);
 
     public string GUID => GetComponent<DataGUID>().guid;
@@ -35,28 +35,28 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
 
     private void OnEndGameEvent()
     {
-        gameClockPause = true;
+        _gameClockPause = true;
     }
 
     private void OnStartNewGameEvent(int index)
     {
         NewGameTime();
-        gameClockPause = false;
+        _gameClockPause = false;
     }
 
     private void OnUpdateGameStateEvent(GameState gameState)
     {
-        gameClockPause = gameState == GameState.Pause;
+        _gameClockPause = gameState == GameState.Pause;
     }
 
     private void OnAfterSceneLoadedEvent()
     {
-        gameClockPause = false;
+        _gameClockPause = false;
     }
 
     private void OnBeforeSceneUnloadEvent()
     {
-        gameClockPause = true;
+        _gameClockPause = true;
     }
 
     private void Start()
@@ -67,17 +67,17 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         EventSystem.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);*/
         ISaveable saveable = this;
         saveable.RegisterSaveable();
-        gameClockPause= true;
+        _gameClockPause= true;
     }
     private void Update()
     {
-        if (!gameClockPause)
+        if (!_gameClockPause)
         {
             //编写一个秒针计时器
-            tikTime += Time.deltaTime;
-            if (tikTime >= Prams.secondThreshold)
+            _timeCount += Time.deltaTime;
+            if (_timeCount >= Prams.secondThreshold)
             {
-                tikTime -= Prams.secondThreshold;
+                _timeCount -= Prams.secondThreshold;
                 UpdateGameTime();
             }
         }
@@ -91,8 +91,8 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         if (Input.GetKeyDown(KeyCode.G))//作弊按钮(天数增加)
         {
             gameDay++;
-            EventSystem.CallGameDayEvent(gameDay, gameSeason);
-            EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+            EventSystem.CallGameDayEvent(gameDay, _gameSeason);
+            EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, _gameSeason);
         }
     }
     private void NewGameTime()//新开一局游戏时给游戏初始化赋值
@@ -103,7 +103,7 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         gameDay = 1;
         gameMonth = 1;
         gameYear = 2022;
-        gameSeason = Season.春天;
+        _gameSeason = Season.春天;
     }
     private void UpdateGameTime()//更新游戏时间,秒分年月日依次递进
     {
@@ -131,12 +131,12 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
                         if (gameMonth > 12)
                             gameMonth = 1;
 
-                        monthInSeason--;
-                        if (monthInSeason == 0)
+                        _monthInSeason--;
+                        if (_monthInSeason == 0)
                         {
-                            monthInSeason = 3;
+                            _monthInSeason = 3;
 
-                            int seasonNumber = (int)gameSeason;
+                            int seasonNumber = (int)_gameSeason;
                             seasonNumber++;
 
                             if (seasonNumber > Prams.seasonHold)
@@ -145,7 +145,7 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
                                 gameYear++;
                             }
 
-                            gameSeason = (Season)seasonNumber;
+                            _gameSeason = (Season)seasonNumber;
 
                             if (gameYear > 9999)
                             {
@@ -153,15 +153,15 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
                             }
                         }
                         //用来刷新地图和农作物生长
-                        EventSystem.CallGameDayEvent(gameDay, gameSeason);
+                        EventSystem.CallGameDayEvent(gameDay, _gameSeason);
                     }
                 }
                 //每时间执行到此位置，调用一下委托时间
-                EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, gameSeason); //这里需要调用一下委托事件
+                EventSystem.CallGameDateSeason(gameHour, gameDay, gameMonth, gameYear, _gameSeason); //这里需要调用一下委托事件
             }
-            EventSystem.CallGameMinuteEvent(gameMinute, gameHour,gameSeason,gameDay);//这里需要调用一下委托事件
+            EventSystem.CallGameMinuteEvent(gameMinute, gameHour,_gameSeason,gameDay);//这里需要调用一下委托事件
             //切换灯光
-            EventSystem.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);
+            EventSystem.CallLightShiftChangeEvent(_gameSeason, GetCurrentLightShift(), _lightTimeDifference);
         }
     }
     /// <summary>
@@ -172,13 +172,13 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
     {
         if (GameTime >= Prams.morningTime && GameTime < Prams.nightTime)
         {
-            timeDifference = (float)(GameTime - Prams.morningTime).TotalMinutes;
+            _lightTimeDifference = (float)(GameTime - Prams.morningTime).TotalMinutes;
             return LightShift.Morning;
         }
         if (GameTime < Prams.morningTime || GameTime >= Prams.nightTime)
         {
-            timeDifference = Mathf.Abs((float)(GameTime - Prams.nightTime).TotalMinutes);
-            Debug.Log(timeDifference);
+            _lightTimeDifference = Mathf.Abs((float)(GameTime - Prams.nightTime).TotalMinutes);
+            Debug.Log(_lightTimeDifference);
             return LightShift.Night;
         }
         return LightShift.Morning;
@@ -189,7 +189,7 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
         GameSaveData saveData = new GameSaveData();
         saveData.timeDict = new Dictionary<string, int>();
         saveData.timeDict.Add("gameYear", gameYear);
-        saveData.timeDict.Add("gameSeason", (int)gameSeason);
+        saveData.timeDict.Add("gameSeason", (int)_gameSeason);
         saveData.timeDict.Add("gameMonth", gameMonth);
         saveData.timeDict.Add("gameDay", gameDay);
         saveData.timeDict.Add("gameHour", gameHour);
@@ -201,7 +201,7 @@ public class TimeManager : Singleton<TimeManager>,ISaveable
     public void RestoreData(GameSaveData saveDate)
     {
         gameYear = saveDate.timeDict["gameYear"];
-        gameSeason = (Season)saveDate.timeDict["gameSeason"];
+        _gameSeason = (Season)saveDate.timeDict["gameSeason"];
         gameMonth = saveDate.timeDict["gameMonth"];
         gameDay = saveDate.timeDict["gameDay"];
         gameHour = saveDate.timeDict["gameHour"];
